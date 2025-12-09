@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-sleep',
-  templateUrl: './sleep.component.html',
-  styleUrls: ['./sleep.component.scss']
+  selector: 'app-weight',
+  templateUrl: './weight.component.html',
+  styleUrls: ['./weight.component.scss']
 })
-export class SleepComponent implements OnInit {
+export class WeightComponent implements OnInit {
 
   sideBarOpen: boolean = true;
 

@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-sleep',
-  templateUrl: './sleep.component.html',
-  styleUrls: ['./sleep.component.scss']
+  selector: 'app-apointments',
+  templateUrl: './apointments.component.html',
+  styleUrls: ['./apointments.component.scss']
 })
-export class SleepComponent implements OnInit {
+export class ApointmentsComponent implements OnInit {
 
   sideBarOpen: boolean = true;
 
