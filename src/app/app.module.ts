@@ -16,6 +16,8 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ApointmentsComponent } from './apointments/apointments.component';
 import { WeightComponent } from './weight/weight.component';
+import { HeaderComponent } from './header/header.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { WeightComponent } from './weight/weight.component';
     SizeComponent,
     DiapersComponent,
     ApointmentsComponent,
-    WeightComponent
+    WeightComponent,
+    HeaderComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,

@@ -1,1 +1,13 @@
-<router-outlet></router-outlet>
+<div fxFlex="100" fxLayout="column" style="overflow: hidden; ">
+  <div fxFlex="0 0 6" style="overflow: hidden; min-height: fit-content; max-height: fit-content;">
+    <app-header></app-header>
+  </div>
+  <div style="overflow: hidden; flex-grow: 1; max-height: 93.2vh; min-height: 93.2vh;">
+    <div fxLayout="row" style="min-width: fit-content !important; max-width: fit-content !important;">
+      <app-sidebar></app-sidebar>
+    </div>
+    <div fxFlex="1 1 93">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+<div fxFlex="100" fxLayout="column">
+  <div class="header">
+    <mat-card class="card">
+      <mat-card-content class="cardContent">
+        <div class="sidebarToggleBtn">
+          <mat-icon (click)="toggleSidebar()" class="sidebarBtnToggle">menu</mat-icon>
+        </div>
+        <div class="HeaderText">
+          <h2>BBYTerminal</h2>
+        </div>
+        <div class="HeaderDatepicker">
+          <mat-form-field class="startDatePicker" appearance="none">
+            <mat-label>Startdatum</mat-label>
+            <input matInput [disabled]="true" [matDatepicker]="picker">
+            <mat-datepicker-toggle matSuffix [for]="picker" [disabled]="false"></mat-datepicker-toggle>
+            <mat-datepicker #picker [disabled]="false"></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field class="startDatePicker" appearance="none">
+            <mat-label>Enddatum</mat-label>
+            <input matInput [disabled]="true" [matDatepicker]="picker2">
+            <mat-datepicker-toggle matSuffix [for]="picker2" [disabled]="false"></mat-datepicker-toggle>
+            <mat-datepicker #picker2 [disabled]="false"></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
