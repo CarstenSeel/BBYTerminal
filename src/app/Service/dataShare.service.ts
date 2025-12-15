@@ -16,14 +16,20 @@ interface Appointment{
 export class DataShareService{
 
     
-
+    private sideBarOpen = new BehaviorSubject(null);
     private appointments = new BehaviorSubject(null);
+    currentSideBarOpen = this.sideBarOpen.asObservable();
     currentAppointments = this.appointments.asObservable();
+    // sideBarOpen: Boolean = true;
 
     constructor(){}
 
     changeAppointments(appointments: any){
-        console.log("change detected ",appointments);
         this.appointments.next(appointments);
+    }
+
+    changeSideBarOpen(sideBarOpen: any){
+        console.log("change in service",sideBarOpen);
+        this.sideBarOpen.next(sideBarOpen);
     }
 }

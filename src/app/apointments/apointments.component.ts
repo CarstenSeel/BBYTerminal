@@ -19,7 +19,6 @@ interface Appointment{
 export class ApointmentsComponent implements OnInit {
 
   dataShareSubscription: Subscription;
-  dataShares: any;
   appointments: Appointment[];
 
   constructor(
@@ -28,7 +27,6 @@ export class ApointmentsComponent implements OnInit {
 
   ngOnInit() {
     this.dataShareSubscription = this.dataShare.currentAppointments.subscribe(data =>{
-      console.log("change detected new appointments = ",data);
       this.appointments = data;
       //possible to filter here
     });

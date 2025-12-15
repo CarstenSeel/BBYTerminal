@@ -1,3 +1,4 @@
 .contentDisplay{
     max-height: calc(100vh - 60.85px);
+    min-height: calc(100vh - 60.85px);
 }

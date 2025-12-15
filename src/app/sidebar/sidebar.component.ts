@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { DataShareService } from '../Service/dataShare.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -8,17 +10,19 @@ import { Router } from '@angular/router';
 })
 export class SidebarComponent implements OnInit {
 
-  sideBarOpen: boolean = true;
+  sideBarOpen: boolean;
+  dataShareSubscription: Subscription;
 
   constructor(
-    private _router: Router
+    private _router: Router,
+    private dataShare: DataShareService,
   ) { }
 
   ngOnInit() {
-  }
-
-  toggleSidebar(){
-    this.sideBarOpen = this.sideBarOpen ? false : true;
+    this.dataShareSubscription = this.dataShare.currentSideBarOpen.subscribe(data =>{
+      console.log("change detected new sidebar = ",data);
+      this.sideBarOpen = data;
+    });
   }
 
   moveToDashboard(){

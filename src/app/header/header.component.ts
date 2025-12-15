@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { DataShareService } from '../Service/dataShare.service';
 
 @Component({
   selector: 'app-header',
@@ -8,9 +9,19 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
+  sidebarOpen: Boolean = true;
   constructor(
+    private dataShare: DataShareService,
   ) { }
 
   ngOnInit() {
+    console.log("oninit",this.sidebarOpen);
+    this.dataShare.changeSideBarOpen(this.sidebarOpen);
+  }
+
+  toggleSidebar(){
+    this.sidebarOpen = this.sidebarOpen ? false : true;
+    this.dataShare.changeSideBarOpen(this.sidebarOpen);
+    console.log("toggled new = ",this.sidebarOpen);
   }
 }
