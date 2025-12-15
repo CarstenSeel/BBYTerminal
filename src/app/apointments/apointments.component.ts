@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { DataShareService } from '../Service/dataShare.service';
+import { DeleteDialogComponent } from '../dialogs/deleteDialog.component';
+import { MatDialog } from '@angular/material';
 
 interface Appointment{
   title: String,
@@ -17,12 +19,12 @@ interface Appointment{
   styleUrls: ['./apointments.component.scss']
 })
 export class ApointmentsComponent implements OnInit {
-
   dataShareSubscription: Subscription;
   appointments: Appointment[];
 
   constructor(
     private dataShare: DataShareService,
+    public dialog: MatDialog,
   ) { }
 
   ngOnInit() {
@@ -37,7 +39,16 @@ export class ApointmentsComponent implements OnInit {
   }
 
   deleteDialog(appoint){
-    console.log("delete ", appoint);
+    var name = appoint.title;
+    let dialogRef = this.dialog.open(DeleteDialogComponent, {data: {name}})
+    dialogRef.afterClosed().subscribe((result) => {
+      if(result){
+        console.log("Delete");
+      }
+      else{
+        console.log("keep");
+      }
+    });
   }
 
   addAppointment(){

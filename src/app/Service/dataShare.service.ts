@@ -29,7 +29,6 @@ export class DataShareService{
     }
 
     changeSideBarOpen(sideBarOpen: any){
-        console.log("change in service",sideBarOpen);
         this.sideBarOpen.next(sideBarOpen);
     }
 }

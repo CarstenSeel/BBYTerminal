@@ -1,13 +1,16 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { MatIconModule } from "@angular/material";
+import { MatDialogModule, MatIconModule } from "@angular/material";
 import { ApointmentsComponent } from "./apointments.component";
+import { DeleteDialogComponent } from "../dialogs/deleteDialog.component";
 
 @NgModule({
     declarations: [ApointmentsComponent],
     imports: [
         CommonModule,
-        MatIconModule
+        MatIconModule,
+        DeleteDialogComponent,
+        MatDialogModule
     ],
     exports: [ApointmentsComponent],
 })

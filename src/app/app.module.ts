@@ -10,7 +10,7 @@ import { DiapersComponent } from './diapers/diapers.component';
 import { AppRoutingModule } from './/app-routing.module';
 import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
-import { MatButtonModule, MatDatepickerModule, MatDividerModule, MatFormFieldModule, MatInput, MatInputModule, MatMenuModule, MatNativeDateModule } from '@angular/material';
+import { MAT_DATE_LOCALE, MatButtonModule, MatDatepickerModule, MatDialogModule, MatDividerModule, MatFormFieldModule, MatInput, MatInputModule, MatMenuModule, MatNativeDateModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -18,6 +18,8 @@ import { ApointmentsComponent } from './apointments/apointments.component';
 import { WeightComponent } from './weight/weight.component';
 import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { DeleteDialogComponent } from './dialogs/deleteDialog.component';
+import { DataShareService } from './Service/dataShare.service';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     ApointmentsComponent,
     WeightComponent,
     HeaderComponent,
-    SidebarComponent
+    SidebarComponent,
+    DeleteDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -46,9 +49,35 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     FlexLayoutModule,
     MatDividerModule,
     MatButtonModule,
-    MatMenuModule
+    MatMenuModule,
+    MatDialogModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+        DataShareService,
+        { provide: MAT_DATE_LOCALE,
+            useValue: {
+                parse: {
+                    dateInput: 'YYYY-MM-DD',
+                    monthInput: 'MMMM',
+                    yearInput: 'YYYY',
+                    timeInput: 'HH:mm',
+                    datetimeInput: 'YYYY-MM-DD HH:mm',
+                },
+                display: {
+                    dateInput: 'YYYY-MM-DD',
+                    monthInput: 'MMMM',
+                    yearInput: 'YYYY',
+                    timeInput: 'HH:mm',
+                    datetimeInput: 'YYYY-MM-DD HH:mm',
+                    monthYearLabel: 'YYYY MMMM',
+                    dateA11yLabel: 'LL',
+                    monthYearA11yLabel: 'MMMM YYYY',
+                    popupHeaderDateLabel: 'MMM DD, ddd',
+                },
+            },
+        },
+      ],
+  bootstrap: [AppComponent],
+  entryComponents: [DeleteDialogComponent]
 })
 export class AppModule { }

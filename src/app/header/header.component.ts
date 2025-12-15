@@ -15,13 +15,11 @@ export class HeaderComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log("oninit",this.sidebarOpen);
     this.dataShare.changeSideBarOpen(this.sidebarOpen);
   }
 
   toggleSidebar(){
     this.sidebarOpen = this.sidebarOpen ? false : true;
     this.dataShare.changeSideBarOpen(this.sidebarOpen);
-    console.log("toggled new = ",this.sidebarOpen);
   }
 }

@@ -1,0 +1,12 @@
+.minCard {
+    min-width: 35em;
+    min-height: 15em;
+}
+ 
+::ng-deep .custom-container .mat-mdc-dialog-container .mdc-dialog__container .mat-mdc-dialog-surface.mdc-dialog__surface {
+    border-radius: 4px !important;
+}
+ 
+.borderRadius {
+    border-radius: 4px !important;
+}

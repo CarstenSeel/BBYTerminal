@@ -20,7 +20,6 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit() {
     this.dataShareSubscription = this.dataShare.currentSideBarOpen.subscribe(data =>{
-      console.log("change detected new sidebar = ",data);
       this.sideBarOpen = data;
     });
   }
