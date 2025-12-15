@@ -1,0 +1,35 @@
+.contentCard{
+    max-height: calc(100vh - 60.85px);
+}
+
+.mainCard{
+    padding: 0px;
+}
+
+.appointmentCards{
+    // margin-left: 24px;
+    margin-right: 0px !important;
+    margin-top: 24px;
+}
+
+::ng-deep .mat-card-header-text{
+    margin: 0px;
+}
+
+.openMenuBTN{
+    cursor: pointer;
+}
+
+.contentCardContent{
+    margin-bottom: 12px !important;
+}
+
+.addBTN{
+    margin-right: 60px;
+    cursor: pointer;
+    color: rgba(0, 200, 250, 1);
+    height: 48px;
+    width: 48px;
+    font-size: 48px;
+    margin-bottom: 24px;
+}

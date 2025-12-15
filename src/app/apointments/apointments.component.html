@@ -1,3 +1,63 @@
-<div fxFlex="100" fxLayout="row">
-  <p>appointments Works!</p>
+<div fxFlex="100" fxLayout="column" class="contentCard">
+  <div fxFlex="0 1 100" fxLayout="column" style="overflow: auto;">
+    <mat-card class="mainCard">
+    <mat-card-header class="mainCardTitle" fxLayoutAlign="center center">
+      <h1>Arzttermine</h1>
+    </mat-card-header>
+    <mat-divider></mat-divider>
+    <mat-card-content class="contentCardContent">
+      <div fxLayout="row wrap" fxLayoutGap="20px" fxLayoutAlign="space-around">
+        <mat-card fxFlex="1 1 30" *ngFor="let appoint of appointments; let i = index; let last = last;" fxLayout="column" class="appointmentCards">
+          <mat-card-header>
+            <div fxFlex="1 1 100">
+              <mat-card-title>
+                <div fxFlex="0 1 70"><h3>{{appoint.title}}</h3></div>
+                <div fxFlex="0 1 30" fxLayoutAlign="end center">
+                  <button mat-icon-button [matMenuTriggerFor]="menu">
+                    <mat-icon>more_vert</mat-icon>
+                  </button>
+                  <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="editDialog(appoint)">
+                      <mat-icon style="z-index: 1;">create</mat-icon>Bearbeiten
+                    </button>
+                    <button mat-menu-item (click)="deleteDialog(appoint)">
+                      <mat-icon iconPositionEnd style="z-index: 1;">delete</mat-icon>Löschen
+                    </button>
+                  </mat-menu>
+
+                </div>
+              </mat-card-title>
+            </div>
+          </mat-card-header>
+          <mat-divider></mat-divider>
+          <mat-card-content fxLayout="column">
+            <div fxFlex="1 1 100" fxLayout="row">
+              <div fxFlex="0 1 50"><b>Zeitpunkt des Termins:</b></div>
+              <div fxFlex="0 1 50" fxLayoutAlign="end">{{appoint.appointmentTime | date: 'dd.MM.yyyy hh:mm'}}</div>
+            </div>
+            <div fxFlex="1 1 100" fxLayout="row">
+              <div fxFlex="0 1 50"><b>Arzt:</b></div>
+              <div fxFlex="0 1 50" fxLayoutAlign="end">{{appoint.doctor}}</div>
+            </div>
+            <div fxFlex="1 1 100" fxLayout="row">
+              <div fxFlex="0 1 50"><b>Grund des Termins:</b></div>
+              <div fxFlex="0 1 50" fxLayoutAlign="end">{{appoint.reason}}</div>
+            </div>
+            <div fxFlex="1 1 100" fxLayout="row">
+              <div fxFlex="1 1 100"><b>Notizen:</b></div>
+            </div>
+            <div fxFlex="1 1 100" fxLayout="row">
+              <div fxFlex="1 1 100">{{appoint.notes}}</div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </mat-card-content>
+  </mat-card>
+  </div>
+  <div fxFlex="0 1 10" fxLayout="row">
+    <div fxFlex="1 1 100" fxLayout="row" fxLayoutAlign="end center">
+      <mat-icon (click)="addAppointment()" class="addBTN">add_circle</mat-icon>
+    </div>
+  </div>
 </div>

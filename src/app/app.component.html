@@ -1,12 +1,12 @@
-<div fxFlex="100" fxLayout="column" style="overflow: hidden; ">
-  <div fxFlex="0 0 6" style="overflow: hidden; min-height: fit-content; max-height: fit-content;">
+<div fxFlex="100" fxLayout="column" style="overflow: hidden; max-height: 100vh;">
+  <div fxFlex="1 1 0" style="overflow: hidden; min-height: fit-content;">
     <app-header></app-header>
   </div>
-  <div style="overflow: hidden; flex-grow: 1; max-height: 93.2vh; min-height: 93.2vh;">
-    <div fxLayout="row" style="min-width: fit-content !important; max-width: fit-content !important;">
+  <div fxFlex="1 1 0" class="contentDisplay">
+    <div fxLayout="row" fxFlex="0 1 0">
       <app-sidebar></app-sidebar>
     </div>
-    <div fxFlex="1 1 93">
+    <div fxFlex="1 1 0">
       <router-outlet></router-outlet>
     </div>
   </div>

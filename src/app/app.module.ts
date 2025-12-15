@@ -10,9 +10,9 @@ import { DiapersComponent } from './diapers/diapers.component';
 import { AppRoutingModule } from './/app-routing.module';
 import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
-import { MatDatepickerModule, MatFormFieldModule, MatInput, MatInputModule, MatNativeDateModule } from '@angular/material';
+import { MatButtonModule, MatDatepickerModule, MatDividerModule, MatFormFieldModule, MatInput, MatInputModule, MatMenuModule, MatNativeDateModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ApointmentsComponent } from './apointments/apointments.component';
 import { WeightComponent } from './weight/weight.component';
@@ -43,7 +43,10 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     BrowserAnimationsModule,
     ReactiveFormsModule,
     MatInputModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatDividerModule,
+    MatButtonModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]
