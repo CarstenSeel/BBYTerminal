@@ -1,0 +1,49 @@
+<div fxLayout="column" class="minCard">
+    <h1>Termin hinzufügen</h1>
+    <form [formGroup]="form" fxLayout="column" fxFlex="0 0 100">
+        <p class="inputLabel">Titel:</p>
+        <div fxFlex="1 0 auto">
+            <mat-form-field fxFlex="1 0 auto">
+                <input matInput class="customInput" formControlName="title">
+                <mat-error *ngIf="form.controls.title.hasError('required')">
+                    Bitte gültigen Namen eingeben
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <p class="inputLabel">Zeitpunkt:</p>
+        <mat-form-field fxFlex="1 0 auto">
+            <input matInput [owlDateTime]="appointmentTime" [owlDateTimeTrigger]="appointmentTime" class="customInput" formControlName="appointmentTime">
+            <owl-date-time #appointmentTime></owl-date-time>
+            <mat-error *ngIf="form.controls.appointmentTime.hasError('required')">
+                Bitte einen Terminzeitpunkt eingeben
+            </mat-error>
+        </mat-form-field>
+        <p class="inputLabel">Arzt:</p>
+        <mat-form-field fxFlex="1 0 auto">
+            <input matInput class="customInput" formControlName="doctor">
+            <mat-error *ngIf="form.controls.doctor.hasError('required')">
+                Bitte einen Arzt angeben
+            </mat-error>
+        </mat-form-field>
+        <p class="inputLabel">Grund:</p>
+        <mat-form-field fxFlex="1 0 auto">
+            <input matInput class="customInput" formControlName="reason">
+            <mat-error *ngIf="form.controls.reason.hasError('required')">
+                Bitte einen Termingrund  angeben
+            </mat-error>
+        </mat-form-field>
+        <p class="inputLabel">Notizen:</p>
+        <mat-form-field fxFlex="1 0 auto">
+            <!-- <input matInput formControlName="notes"> -->
+             <textarea matInput formControlName="notes" class="customTextArea"></textarea>
+            <mat-error *ngIf="form.controls.notes.hasError('required')">
+                Bitte Notizen hinzufügen
+            </mat-error>
+        </mat-form-field>
+    </form>
+ 
+    <div fxFlex="0 1 auto" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center">
+        <button class="borderRadius" fxFlex="0 1 50" mat-raised-button (click)="saveChanges()">Speichern</button>
+        <button class="borderRadius" fxFlex="0 1 50" mat-raised-button (click)="closeDialog()">Abbrechen</button>
+    </div>
+</div>

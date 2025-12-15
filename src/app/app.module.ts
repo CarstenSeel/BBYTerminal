@@ -18,8 +18,11 @@ import { ApointmentsComponent } from './apointments/apointments.component';
 import { WeightComponent } from './weight/weight.component';
 import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
-import { DeleteDialogComponent } from './dialogs/deleteDialog.component';
+import { DeleteDialogComponent } from './apointments/dialogs/deleteDialog/deleteDialog.component';
 import { DataShareService } from './Service/dataShare.service';
+import { CreateDialogComponent } from './apointments/dialogs/createDialog/createDialog.component';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { EditDialogComponent } from './apointments/dialogs/editDialog/editDialog.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,9 @@ import { DataShareService } from './Service/dataShare.service';
     WeightComponent,
     HeaderComponent,
     SidebarComponent,
-    DeleteDialogComponent
+    DeleteDialogComponent,
+    CreateDialogComponent,
+    EditDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +55,9 @@ import { DataShareService } from './Service/dataShare.service';
     MatDividerModule,
     MatButtonModule,
     MatMenuModule,
-    MatDialogModule
+    MatDialogModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule
   ],
   providers: [
         DataShareService,
@@ -78,6 +85,10 @@ import { DataShareService } from './Service/dataShare.service';
         },
       ],
   bootstrap: [AppComponent],
-  entryComponents: [DeleteDialogComponent]
+  entryComponents: [
+    DeleteDialogComponent,
+    CreateDialogComponent,
+    EditDialogComponent
+  ]
 })
 export class AppModule { }
