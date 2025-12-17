@@ -21,8 +21,13 @@ interface Appointment{
   styleUrls: ['./apointments.component.scss']
 })
 export class ApointmentsComponent implements OnInit {
-  dataShareSubscription: Subscription;
+  dataShareAppointSubscription: Subscription;
+  dataShareStartDateSubscription: Subscription;
+  dataShareEndDateSubscription: Subscription;
   appointments: Appointment[];
+  appointmentsBackup: Appointment[];
+  startDate: Date;
+  endDate: Date;
 
   constructor(
     private dataShare: DataShareService,
@@ -30,10 +35,20 @@ export class ApointmentsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.dataShareSubscription = this.dataShare.currentAppointments.subscribe(data =>{
+    this.dataShareAppointSubscription = this.dataShare.currentAppointments.subscribe(data =>{
       this.appointments = data;
+      this.appointmentsBackup = this.appointments;
+      this.applyDateFilter();
       //possible to filter here
     });
+    this.dataShareStartDateSubscription = this.dataShare.currentStartDate.subscribe(data =>{
+      this.startDate = data;
+      this.applyDateFilter();
+    });
+    this.dataShareEndDateSubscription = this.dataShare.currentEndDate.subscribe(data =>{
+      this.endDate = data;
+      this.applyDateFilter();
+    })
   }
 
   editDialog(appoint){
@@ -69,6 +84,42 @@ export class ApointmentsComponent implements OnInit {
         this.appointments.push(result);
         this.dataShare.changeAppointments(this.appointments);
       }
+    });
+  }
+
+  applyDateFilter(){
+    if(this.startDate && this.endDate){
+      this.appointments = this.appointmentsBackup;
+      var found = [];
+      var startDateDay = this.startDate.getDate();
+      var startDateMonth = this.startDate.getMonth() + 1;
+      var startDateYear = this.startDate.getFullYear();
+      var endDateDay = this.endDate.getDate();
+      var endDateMonth = this.endDate.getMonth() + 1;
+      var endDateYear = this.endDate.getFullYear();
+      if(this.appointments){
+        this.appointments.forEach(e =>{
+          if((e.appointmentTime.getFullYear() >= startDateYear && e.appointmentTime.getMonth() + 1 > startDateMonth) || (e.appointmentTime.getMonth() + 1 == startDateMonth && e.appointmentTime.getDate() >= startDateDay)){
+            if((e.appointmentTime.getFullYear() <= endDateYear && e.appointmentTime.getMonth() + 1 < endDateMonth) || (e.appointmentTime.getMonth() + 1 == endDateMonth && e.appointmentTime.getDate() <= endDateDay)){
+              found.push(e);
+            }
+          }
+        });
+      }
+      this.appointments = found;
+      this.reArrangeAppointments();
+    }
+  }
+
+  reArrangeAppointments(){
+    this.appointments = this.appointments.sort((n1,n2) =>{
+      if(n1.appointmentTime > n2.appointmentTime){
+        return 1;
+      }
+      if(n1.appointmentTime < n2.appointmentTime){
+        return -1;
+      }
+      return 0;
     });
   }
 }

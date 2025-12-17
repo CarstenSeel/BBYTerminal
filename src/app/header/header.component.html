@@ -11,15 +11,15 @@
         <div class="HeaderDatepicker">
           <mat-form-field class="startDatePicker" appearance="none">
             <mat-label>Startdatum</mat-label>
-            <input matInput [disabled]="true" [matDatepicker]="picker">
-            <mat-datepicker-toggle matSuffix [for]="picker" [disabled]="false"></mat-datepicker-toggle>
-            <mat-datepicker #picker [disabled]="false"></mat-datepicker>
+            <input matInput [disabled]="true" [matDatepicker]="startDate" (dateChange)="startDateChange($event)" [formControl]="startDateDefault">
+            <mat-datepicker-toggle matSuffix [for]="startDate" [disabled]="false"></mat-datepicker-toggle>
+            <mat-datepicker #startDate [disabled]="false" [startAt]="startDate"></mat-datepicker>
           </mat-form-field>
           <mat-form-field class="startDatePicker" appearance="none">
             <mat-label>Enddatum</mat-label>
-            <input matInput [disabled]="true" [matDatepicker]="picker2">
-            <mat-datepicker-toggle matSuffix [for]="picker2" [disabled]="false"></mat-datepicker-toggle>
-            <mat-datepicker #picker2 [disabled]="false"></mat-datepicker>
+            <input matInput [disabled]="true" [matDatepicker]="endDate" (dateChange)="endDateChange($event)" [formControl]="endDateDefault">
+            <mat-datepicker-toggle matSuffix [for]="endDate" [disabled]="false"></mat-datepicker-toggle>
+            <mat-datepicker #endDate [disabled]="false" [startAt]="endDate"></mat-datepicker>
           </mat-form-field>
         </div>
       </mat-card-content>

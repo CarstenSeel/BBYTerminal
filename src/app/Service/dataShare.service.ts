@@ -18,9 +18,12 @@ export class DataShareService{
     
     private sideBarOpen = new BehaviorSubject(null);
     private appointments = new BehaviorSubject(null);
+    private startDate = new BehaviorSubject(null);
+    private endDate = new BehaviorSubject(null);
+    currentStartDate = this.startDate.asObservable();
+    currentEndDate = this.endDate.asObservable();
     currentSideBarOpen = this.sideBarOpen.asObservable();
     currentAppointments = this.appointments.asObservable();
-    // sideBarOpen: Boolean = true;
 
     constructor(){}
 
@@ -30,5 +33,13 @@ export class DataShareService{
 
     changeSideBarOpen(sideBarOpen: any){
         this.sideBarOpen.next(sideBarOpen);
+    }
+
+    changeStartDate(startDate: any){
+        this.startDate.next(startDate);
+    }
+
+    changeEndDate(endDate: any){
+        this.endDate.next(endDate);
     }
 }
