@@ -23,6 +23,7 @@ import { DataShareService } from './Service/dataShare.service';
 import { CreateDialogComponent } from './apointments/dialogs/createDialog/createDialog.component';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { EditDialogComponent } from './apointments/dialogs/editDialog/editDialog.component';
+import { ChartsModule } from 'ng2-charts'
 
 @NgModule({
   declarations: [
@@ -38,7 +39,7 @@ import { EditDialogComponent } from './apointments/dialogs/editDialog/editDialog
     SidebarComponent,
     DeleteDialogComponent,
     CreateDialogComponent,
-    EditDialogComponent
+    EditDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,7 +58,8 @@ import { EditDialogComponent } from './apointments/dialogs/editDialog/editDialog
     MatMenuModule,
     MatDialogModule,
     OwlDateTimeModule,
-    OwlNativeDateTimeModule
+    OwlNativeDateTimeModule,
+    ChartsModule
   ],
   providers: [
         DataShareService,
