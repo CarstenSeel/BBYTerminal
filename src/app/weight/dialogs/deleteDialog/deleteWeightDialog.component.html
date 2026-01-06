@@ -1,0 +1,28 @@
+<div class="minCard" fxLayout="column">
+    <div fxFlex="1 1 25">
+        <h1>Gewicht Löschen</h1>
+    </div>
+    <div fxFlex="1 1 25">
+        <mat-form-field class="choiceDatePicker" appearance="none">
+            <input matInput [disabled]="true" [matDatepicker]="choiceDate" (dateChange)="choiceDateChange($event)" [formControl]="choiceDateDefault">
+            <mat-datepicker-toggle matSuffix [for]="choiceDate" [disabled]="false"></mat-datepicker-toggle>
+            <mat-datepicker #choiceDate [disabled]="false" [startAt]="choiceDate"></mat-datepicker>
+          </mat-form-field>
+    </div>
+    <div fxFlex="1 1 25">
+        <form [formGroup]="form">
+                <mat-form-field class="customSelect" appearance="none">
+                <mat-label>Gewicht in kg</mat-label>
+                <mat-select formControlName="size">
+                    <mat-option *ngFor="let option of options" [value]="option">{{option}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </form>
+    </div>
+    <div fxFlex="1 1 25" fxLayoutAlign="end" style="margin-top:12px">
+        <div fxFlex="1 1 100" fxLayout="row" fxLayoutAlign="space-between end">
+            <button fxFlex="0 0 45" class="borderRadius" mat-raised-button (click)="delete()" mat-button fxLayoutAlign="center center">Ja</button>
+            <button fxFlex="0 0 45" class="borderRadius" mat-raised-button (click)="noDelete()" mat-button fxLayoutAlign="center center">Nein</button>
+        </div>
+    </div>
+</div>

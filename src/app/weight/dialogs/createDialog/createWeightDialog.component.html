@@ -1,12 +1,12 @@
 <div fxLayout="column" class="minCard">
-    <h1>Größe hinzufügen</h1>
+    <h1>Gewicht hinzufügen</h1>
     <form [formGroup]="form" fxLayout="column" fxFlex="0 0 100">
-        <p class="inputLabel">Größe des Kindes in cm:</p>
+        <p class="inputLabel">Gewicht des Kindes in kg:</p>
         <div fxFlex="1 0 auto">
             <mat-form-field fxFlex="1 0 auto">
                 <input matInput class="customInput" formControlName="size">
                 <mat-error *ngIf="form.controls.size.hasError('required')">
-                    Bitte gültige Größe eingeben
+                    Bitte gültiges Gewicht eingeben
                 </mat-error>
             </mat-form-field>
         </div>

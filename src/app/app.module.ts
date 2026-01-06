@@ -26,6 +26,8 @@ import { EditDialogComponent } from './apointments/dialogs/editDialog/editDialog
 import { ChartsModule } from 'ng2-charts'
 import { CreateSizeDialogComponent } from './size/dialogs/createDialog/createSizeDialog.component';
 import { DeleteSizeDialogComponent } from './size/dialogs/deleteDialog/deleteSizeDialog.component';
+import { CreateWeightDialogComponent } from './weight/dialogs/createDialog/createWeightDialog.component';
+import { DeleteWeightDialogComponent } from './weight/dialogs/deleteDialog/deleteWeightDialog.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,9 @@ import { DeleteSizeDialogComponent } from './size/dialogs/deleteDialog/deleteSiz
     CreateDialogComponent,
     EditDialogComponent,
     CreateSizeDialogComponent,
-    DeleteSizeDialogComponent
+    DeleteSizeDialogComponent,
+    CreateWeightDialogComponent,
+    DeleteWeightDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -98,7 +102,9 @@ import { DeleteSizeDialogComponent } from './size/dialogs/deleteDialog/deleteSiz
     CreateDialogComponent,
     EditDialogComponent,
     CreateSizeDialogComponent,
-    DeleteSizeDialogComponent
+    DeleteSizeDialogComponent,
+    CreateWeightDialogComponent,
+    DeleteWeightDialogComponent
   ]
 })
 export class AppModule { }

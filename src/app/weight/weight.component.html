@@ -1,2 +1,23 @@
-<div class="DashboardContainer">
+<div fxFlex="100" fxLayout="column" class="contentCard">
+    <!-- content room -->
+  <div fxFlex="0 1 100" fxLayout="column" style="overflow: auto;">
+    <mat-card class="mainCard">
+      <mat-card-header class="mainCardTitle" fxLayoutAlign="center center">
+        <h1>Gewicht</h1>
+      </mat-card-header>
+      <mat-divider></mat-divider>
+      <mat-card-content class="contentCardContent">
+            <canvas id="WeightChart" class="WeightChart">{{Chart}}</canvas>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <!-- btn room  -->
+  <div fxFlex="0 1 10" fxLayoutAlign="end" fxLayout="row">
+    <div fxFlex="1 1 50" fxLayout="row" fxLayoutAlign="start center">
+      <mat-icon (click)="removeSize()" class="removeBTN">remove_circle</mat-icon>
+    </div>
+    <div fxFlex="1 1 50" fxLayout="row" fxLayoutAlign="end center">
+      <mat-icon (click)="addSize()" class="addBTN">add_circle</mat-icon>
+    </div>
+  </div>
 </div>

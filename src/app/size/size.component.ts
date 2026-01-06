@@ -79,8 +79,6 @@ export class SizeComponent implements OnInit {
               this.newChart.data.labels.push(label);
               this.newChart.data.datasets[0].data.push(result.size);
               this.dataShare.changeSizeTestChart(this.newChart);
-            // this.appointments.push(result);
-            // this.dataShare.changeAppointments(this.appointments);
           }
         });
   }

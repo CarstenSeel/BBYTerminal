@@ -35,6 +35,7 @@ interface Chart{
 export class DashboardComponent implements OnInit {
   appointmentsTestData: Appointment[];
   sizeTestChart: Chart;
+  weightTestChart: Chart;
   chart: any;
   constructor(
     private dataShare: DataShareService,
@@ -51,6 +52,8 @@ export class DashboardComponent implements OnInit {
     this.dataShare.changeAppointments(this.appointmentsTestData);
     this.sizeTestChart = this.createDummySizeChart(this.sizeTestChart);
     this.dataShare.changeSizeTestChart(this.sizeTestChart);
+    this.weightTestChart = this.createDummyWeightChart(this.weightTestChart);
+    this.dataShare.changeWeightTestChart(this.weightTestChart);
   }
 
 
@@ -149,7 +152,27 @@ export class DashboardComponent implements OnInit {
             aspectRatio: 2.5
           }
         };
-        console.log("sizeTestChart Dashboard = ",sizeTestChart);
     return sizeTestChart;
+  }
+
+  createDummyWeightChart(weightTestChart){
+    weightTestChart = {
+          type: 'line',
+          data: {
+            labels: ["1.6.25", "1.7.25", "1.8.25", "1.9.25", "1.10.25", "1.11.25"],
+            datasets: [
+              {
+                label: "Gewichtverlauf",
+                data: [5,6.5,7,6.8,7.7,9.6],
+                borderColor: 'rgb(0, 200, 250)',
+                fill: false
+              }
+            ]
+          },
+          options: {
+            aspectRatio: 2.5
+          }
+        };
+    return weightTestChart;
   }
 }
