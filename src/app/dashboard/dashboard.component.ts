@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DataShareService } from '../Service/dataShare.service';
+import { Chart } from 'chart.js';
 
 interface Appointment{
   title: String,
@@ -10,6 +11,21 @@ interface Appointment{
   reason: String,
   notes: String
 }
+interface Chart{
+  type: String,
+  data:{
+    labels: String[],
+    datasets: [{
+      label: String,
+      data: number[],
+      borderColor: String,
+      fill: boolean
+    }]
+  },
+  options:{
+    aspectRatio: number
+  }
+}
 
 @Component({
   selector: 'app-dashboard',
@@ -17,7 +33,9 @@ interface Appointment{
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  appointmentsTestData: Appointment[]
+  appointmentsTestData: Appointment[];
+  sizeTestChart: Chart;
+  chart: any;
   constructor(
     private dataShare: DataShareService,
   ) {
@@ -31,6 +49,8 @@ export class DashboardComponent implements OnInit {
     // })
     this.appointmentsTestData = this.createDummyappointments(this.appointmentsTestData);
     this.dataShare.changeAppointments(this.appointmentsTestData);
+    this.sizeTestChart = this.createDummySizeChart(this.sizeTestChart);
+    this.dataShare.changeSizeTestChart(this.sizeTestChart);
   }
 
 
@@ -102,12 +122,34 @@ export class DashboardComponent implements OnInit {
       },
       {
         title: "Termin 10",
-        appointmentTime: new Date("2025-12-05T14:00:00"),
+        appointmentTime: new Date("2025-12-20T14:00:00"),
         doctor: "Dr. Schmidt",
         reason: "Hörtest",
         notes: "Kontrolle des Hörvermögens."
       }
     ];
     return appointmentsTestData;
+  }
+
+  createDummySizeChart(sizeTestChart){
+    sizeTestChart = {
+          type: 'line',
+          data: {
+            labels: ["1.6.25", "1.7.25", "1.8.25", "1.9.25", "1.10.25", "1.11.25"],
+            datasets: [
+              {
+                label: "Wachstumsverlauf",
+                data: [50,55,58,65,68,74],
+                borderColor: 'rgb(0, 200, 250)',
+                fill: false
+              }
+            ]
+          },
+          options: {
+            aspectRatio: 2.5
+          }
+        };
+        console.log("sizeTestChart Dashboard = ",sizeTestChart);
+    return sizeTestChart;
   }
 }

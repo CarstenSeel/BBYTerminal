@@ -91,18 +91,10 @@ export class ApointmentsComponent implements OnInit {
     if(this.startDate && this.endDate){
       this.appointments = this.appointmentsBackup;
       var found = [];
-      var startDateDay = this.startDate.getDate();
-      var startDateMonth = this.startDate.getMonth() + 1;
-      var startDateYear = this.startDate.getFullYear();
-      var endDateDay = this.endDate.getDate();
-      var endDateMonth = this.endDate.getMonth() + 1;
-      var endDateYear = this.endDate.getFullYear();
       if(this.appointments){
-        this.appointments.forEach(e =>{
-          if((e.appointmentTime.getFullYear() >= startDateYear && e.appointmentTime.getMonth() + 1 > startDateMonth) || (e.appointmentTime.getMonth() + 1 == startDateMonth && e.appointmentTime.getDate() >= startDateDay)){
-            if((e.appointmentTime.getFullYear() <= endDateYear && e.appointmentTime.getMonth() + 1 < endDateMonth) || (e.appointmentTime.getMonth() + 1 == endDateMonth && e.appointmentTime.getDate() <= endDateDay)){
-              found.push(e);
-            }
+        this.appointments.forEach(e=>{
+          if((e.appointmentTime.getTime() <= this.endDate.getTime() && e.appointmentTime.getTime() >= this.startDate.getTime())){
+            found.push(e);
           }
         });
       }

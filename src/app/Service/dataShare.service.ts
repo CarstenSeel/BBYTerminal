@@ -20,10 +20,12 @@ export class DataShareService{
     private appointments = new BehaviorSubject(null);
     private startDate = new BehaviorSubject(null);
     private endDate = new BehaviorSubject(null);
+    private sizeTestChart = new BehaviorSubject(null);
     currentStartDate = this.startDate.asObservable();
     currentEndDate = this.endDate.asObservable();
     currentSideBarOpen = this.sideBarOpen.asObservable();
     currentAppointments = this.appointments.asObservable();
+    currentSizeTestChart = this.sizeTestChart.asObservable();
 
     constructor(){}
 
@@ -41,5 +43,10 @@ export class DataShareService{
 
     changeEndDate(endDate: any){
         this.endDate.next(endDate);
+    }
+
+    changeSizeTestChart(sizeTestChart: any){
+        console.log("changeSizeChart", sizeTestChart);
+        this.sizeTestChart.next(sizeTestChart);
     }
 }

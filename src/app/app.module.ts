@@ -10,7 +10,7 @@ import { DiapersComponent } from './diapers/diapers.component';
 import { AppRoutingModule } from './/app-routing.module';
 import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
-import { MAT_DATE_LOCALE, MatButtonModule, MatDatepickerModule, MatDialogModule, MatDividerModule, MatFormFieldModule, MatInput, MatInputModule, MatMenuModule, MatNativeDateModule } from '@angular/material';
+import { MAT_DATE_LOCALE, MatButtonModule, MatDatepickerModule, MatDialogModule, MatDividerModule, MatFormFieldModule, MatInput, MatInputModule, MatMenuModule, MatNativeDateModule, MatOptionModule, MatSelectModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -24,6 +24,8 @@ import { CreateDialogComponent } from './apointments/dialogs/createDialog/create
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { EditDialogComponent } from './apointments/dialogs/editDialog/editDialog.component';
 import { ChartsModule } from 'ng2-charts'
+import { CreateSizeDialogComponent } from './size/dialogs/createDialog/createSizeDialog.component';
+import { DeleteSizeDialogComponent } from './size/dialogs/deleteDialog/deleteSizeDialog.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +42,8 @@ import { ChartsModule } from 'ng2-charts'
     DeleteDialogComponent,
     CreateDialogComponent,
     EditDialogComponent,
+    CreateSizeDialogComponent,
+    DeleteSizeDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +63,9 @@ import { ChartsModule } from 'ng2-charts'
     MatDialogModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
-    ChartsModule
+    ChartsModule,
+    MatOptionModule,
+    MatSelectModule
   ],
   providers: [
         DataShareService,
@@ -90,7 +96,9 @@ import { ChartsModule } from 'ng2-charts'
   entryComponents: [
     DeleteDialogComponent,
     CreateDialogComponent,
-    EditDialogComponent
+    EditDialogComponent,
+    CreateSizeDialogComponent,
+    DeleteSizeDialogComponent
   ]
 })
 export class AppModule { }

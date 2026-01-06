@@ -1,0 +1,26 @@
+<div fxLayout="column" class="minCard">
+    <h1>Termin hinzufügen</h1>
+    <form [formGroup]="form" fxLayout="column" fxFlex="0 0 100">
+        <p class="inputLabel">Größe des Kindes in cm:</p>
+        <div fxFlex="1 0 auto">
+            <mat-form-field fxFlex="1 0 auto">
+                <input matInput class="customInput" formControlName="size">
+                <mat-error *ngIf="form.controls.size.hasError('required')">
+                    Bitte gültige Größe eingeben
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <p class="inputLabelTime">Zeitpunkt:</p>
+        <mat-form-field class="startDatePicker" fxFlex="1 0 auto">
+            <input matInput [disabled]="true" [matDatepicker]="sizeTime" formControlName="sizeTime" (dateChange)="dateChange($event)" style="width: 90%;">
+            <mat-datepicker-toggle matIconSuffix [for]="sizeTime" [disabled]="false"></mat-datepicker-toggle>
+            <mat-datepicker #sizeTime [disabled]="false"></mat-datepicker>
+        </mat-form-field>
+        <p *ngIf="warning" style="color: red;">Ein Eintrag an diesem Datum existiert bereits</p>
+    </form>
+ 
+    <div fxFlex="0 1 auto" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center">
+        <button class="borderRadius" fxFlex="0 1 50" mat-raised-button (click)="saveChanges()">Speichern</button>
+        <button class="borderRadius" fxFlex="0 1 50" mat-raised-button (click)="closeDialog()">Abbrechen</button>
+    </div>
+</div>
