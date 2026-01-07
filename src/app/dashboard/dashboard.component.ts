@@ -54,6 +54,11 @@ interface Food{
   amount: number,
   time: Date
 }
+interface Sleep{
+  startDate: Date,
+  endDate: Date,
+  duration: number
+}
 
 @Component({
   selector: 'app-dashboard',
@@ -67,6 +72,7 @@ export class DashboardComponent implements OnInit {
   diaperTestData: Diaper[];
   chart: any;
   foodTestData: Food[];
+  sleepTestData: Sleep[];
   constructor(
     private dataShare: DataShareService,
   ) {
@@ -88,6 +94,8 @@ export class DashboardComponent implements OnInit {
     this.dataShare.changeDiapers(this.diaperTestData);
     this.foodTestData = this.createDummyFood(this.foodTestData);
     this.dataShare.changeFood(this.foodTestData);
+    this.sleepTestData = this.createDummySleep(this.sleepTestData);
+    this.dataShare.changeSleep(this.sleepTestData);
   }
 
 
@@ -358,5 +366,86 @@ export class DashboardComponent implements OnInit {
       }
     ];
     return foodTestData;
+  }
+
+  createDummySleep(sleepTestData){
+    sleepTestData = [
+      {
+        startDate: new Date("2026-01-05T20:00:00"),
+        endDate: new Date("2026-01-06T02:00:00"),
+        duration: 6
+      },
+      {
+        startDate: new Date("2026-01-06T09:00:00"),
+        endDate: new Date("2026-01-06T11:30:00"),
+        duration: 2.5
+      },
+      {
+        startDate: new Date("2026-01-06T14:00:00"),
+        endDate: new Date("2026-01-06T16:30:00"),
+        duration: 2.5
+      },
+      {
+        startDate: new Date("2026-01-06T19:00:00"),
+        endDate: new Date("2026-01-07T01:00:00"),
+        duration: 6
+      },
+      {
+        startDate: new Date("2026-01-07T09:30:00"),
+        endDate: new Date("2026-01-07T12:00:00"),
+        duration: 2.5
+      },
+      {
+        startDate: new Date("2026-01-07T15:00:00"),
+        endDate: new Date("2026-01-07T17:30:00"),
+        duration: 2.5
+      },
+      {
+        startDate: new Date("2026-01-07T20:00:00"),
+        endDate: new Date("2026-01-08T02:30:00"),
+        duration: 6.5
+      },
+      {
+        startDate: new Date("2026-01-08T09:00:00"),
+        endDate: new Date("2026-01-08T11:30:00"),
+        duration: 2.5
+      },
+      {
+        startDate: new Date("2026-01-08T14:30:00"),
+        endDate: new Date("2026-01-08T17:00:00"),
+        duration: 2.5
+      },
+      {
+        startDate: new Date("2026-01-08T19:30:00"),
+        endDate: new Date("2026-01-09T02:00:00"),
+        duration: 6.5
+      },
+      {
+        startDate: new Date("2026-01-09T09:30:00"),
+        endDate: new Date("2026-01-09T12:00:00"),
+        duration: 2.5
+      },
+      {
+        startDate: new Date("2026-01-09T15:00:00"),
+        endDate: new Date("2026-01-09T17:30:00"),
+        duration: 2.5
+      },
+      {
+        startDate: new Date("2026-01-10T20:00:00"),
+        endDate: new Date("2026-01-11T02:30:00"),
+        duration: 6.5
+      },
+      {
+        startDate: new Date("2026-01-10T09:00:00"),
+        endDate: new Date("2026-01-10T11:30:00"),
+        duration: 2.5
+      },
+      {
+        startDate: new Date("2026-01-11T14:00:00"),
+        endDate: new Date("2026-01-11T16:30:00"),
+        duration: 2.5
+      }
+    ];
+    return sleepTestData
   }
 }

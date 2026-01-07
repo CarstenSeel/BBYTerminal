@@ -16,6 +16,7 @@ export class DataShareService{
     private weightTestChart = new BehaviorSubject(null);
     private diaperTestData = new BehaviorSubject(null);
     private foodTestData = new BehaviorSubject(null);
+    private sleepTestData = new BehaviorSubject(null);
     currentStartDate = this.startDate.asObservable();
     currentEndDate = this.endDate.asObservable();
     currentSideBarOpen = this.sideBarOpen.asObservable();
@@ -24,6 +25,7 @@ export class DataShareService{
     currentWeightTestChart = this.weightTestChart.asObservable();
     currentDiaperTestData = this.diaperTestData.asObservable();
     currentFoodTestData = this.foodTestData.asObservable();
+    currentSleepTestData = this.sleepTestData.asObservable();
 
     constructor(){}
 
@@ -57,5 +59,9 @@ export class DataShareService{
 
     changeFood(foodTestData: any){
         this.foodTestData.next(foodTestData);
+    }
+
+    changeSleep(sleepTestData: any){
+        this.sleepTestData.next(sleepTestData);
     }
 }

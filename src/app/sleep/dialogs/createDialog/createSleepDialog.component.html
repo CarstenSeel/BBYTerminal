@@ -1,0 +1,26 @@
+<div fxLayout="column" class="minCard">
+    <h1>Schlaf hinzufügen</h1>
+    <form [formGroup]="form" fxLayout="column" fxFlex="0 0 100">
+        <p class="inputLabelTime">Start Zeitpunkt:</p>
+        <mat-form-field class="startDatePicker" fxFlex="1 0 auto">
+            <input matInput [owlDateTime]="starttime" [owlDateTimeTrigger]="starttime" class="customInput" formControlName="starttime">
+            <owl-date-time #starttime></owl-date-time>
+            <mat-error *ngIf="form.controls.starttime.hasError('required')">
+                Bitte die Einschlafzeit eingeben
+            </mat-error>
+        </mat-form-field>
+        <p class="inputLabelTime">End Zeitpunkt:</p>
+        <mat-form-field class="startDatePicker" fxFlex="1 0 auto">
+            <input matInput [owlDateTime]="endtime" [owlDateTimeTrigger]="endtime" class="customInput" formControlName="endtime">
+            <owl-date-time #endtime></owl-date-time>
+            <mat-error *ngIf="form.controls.endtime.hasError('required')">
+                Bitte die Aufwachzeit eingeben
+            </mat-error>
+        </mat-form-field>
+    </form>
+ 
+    <div fxFlex="0 1 auto" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center">
+        <button class="borderRadius" fxFlex="0 1 50" mat-raised-button (click)="saveChanges()">Speichern</button>
+        <button class="borderRadius" fxFlex="0 1 50" mat-raised-button (click)="closeDialog()">Abbrechen</button>
+    </div>
+</div>

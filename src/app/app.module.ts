@@ -32,6 +32,8 @@ import { DeleteDiaperDialogComponent } from './diapers/dialogs/deleteDialog/dele
 import { CreateDiaperDialogComponent } from './diapers/dialogs/createDialog/createDiaperDialog.component';
 import { CreateFoodDialogComponent } from './food/dialogs/createDialog/createFoodDialog.component';
 import { DeleteFoodDialogComponent } from './food/dialogs/deleteDialog/deleteFoodDialog.component';
+import { CreateSleepDialogComponent } from './sleep/dialogs/createDialog/createSleepDialog.component';
+import { DeleteSleepDialogComponent } from './sleep/dialogs/deleteDialog/deleteSleepDialog.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +57,9 @@ import { DeleteFoodDialogComponent } from './food/dialogs/deleteDialog/deleteFoo
     CreateDiaperDialogComponent,
     DeleteDiaperDialogComponent,
     CreateFoodDialogComponent,
-    DeleteFoodDialogComponent
+    DeleteFoodDialogComponent,
+    CreateSleepDialogComponent,
+    DeleteSleepDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -117,7 +121,9 @@ import { DeleteFoodDialogComponent } from './food/dialogs/deleteDialog/deleteFoo
     CreateDiaperDialogComponent,
     DeleteDiaperDialogComponent,
     CreateFoodDialogComponent,
-    DeleteFoodDialogComponent
+    DeleteFoodDialogComponent,
+    CreateSleepDialogComponent,
+    DeleteSleepDialogComponent
   ]
 })
 export class AppModule { }
