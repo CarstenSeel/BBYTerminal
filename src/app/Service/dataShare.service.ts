@@ -1,14 +1,6 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
 
-interface Appointment{
-  title: String,
-  appointmentTime: Date,
-  doctor: String,
-  reason: String,
-  notes: String
-}
-
 @Injectable({
     providedIn: 'root',
 })
@@ -22,12 +14,14 @@ export class DataShareService{
     private endDate = new BehaviorSubject(null);
     private sizeTestChart = new BehaviorSubject(null);
     private weightTestChart = new BehaviorSubject(null);
+    private diaperTestData = new BehaviorSubject(null);
     currentStartDate = this.startDate.asObservable();
     currentEndDate = this.endDate.asObservable();
     currentSideBarOpen = this.sideBarOpen.asObservable();
     currentAppointments = this.appointments.asObservable();
     currentSizeTestChart = this.sizeTestChart.asObservable();
     currentWeightTestChart = this.weightTestChart.asObservable();
+    currentDiaperTestData = this.diaperTestData.asObservable();
 
     constructor(){}
 
@@ -53,5 +47,9 @@ export class DataShareService{
 
     changeWeightTestChart(weightTestChart: any){
         this.weightTestChart.next(weightTestChart);
+    }
+
+    changeDiapers(diaperTestData: any){
+        this.diaperTestData.next(diaperTestData);
     }
 }

@@ -26,6 +26,29 @@ interface Chart{
     aspectRatio: number
   }
 }
+interface Diaper{
+  type: string,
+  time: Date
+}
+interface PieChart{
+  type: String,
+  data:{
+    labels: String[],
+    datasets: [{
+      label: String,
+      data: number[],
+      backgroundColor: [
+                  String,
+                  String,
+                  String
+                ],
+      hoverOffset: number
+    }]
+  },
+  options: {
+    radius: 200
+  }
+}
 
 @Component({
   selector: 'app-dashboard',
@@ -36,6 +59,8 @@ export class DashboardComponent implements OnInit {
   appointmentsTestData: Appointment[];
   sizeTestChart: Chart;
   weightTestChart: Chart;
+  diaperTestData: Diaper[];
+  diaperTestChart: PieChart;
   chart: any;
   constructor(
     private dataShare: DataShareService,
@@ -54,6 +79,8 @@ export class DashboardComponent implements OnInit {
     this.dataShare.changeSizeTestChart(this.sizeTestChart);
     this.weightTestChart = this.createDummyWeightChart(this.weightTestChart);
     this.dataShare.changeWeightTestChart(this.weightTestChart);
+    this.diaperTestData = this.createDummyDiaper(this.diaperTestData);
+    this.dataShare.changeDiapers(this.diaperTestData);
   }
 
 
@@ -164,7 +191,7 @@ export class DashboardComponent implements OnInit {
               {
                 label: "Gewichtverlauf",
                 data: [5,6.5,7,6.8,7.7,9.6],
-                borderColor: 'rgb(0, 200, 250)',
+                borderColor: '#00c8faff',
                 fill: false
               }
             ]
@@ -174,5 +201,79 @@ export class DashboardComponent implements OnInit {
           }
         };
     return weightTestChart;
+  }
+
+  createDummyDiaper(diaperTestData){
+    diaperTestData = [
+      {
+        type: "Urin",
+        time: new Date('2026-01-05T08:00:00.000Z')
+      },
+      {
+        type: "Stuhl",
+        time: new Date('2026-01-05T12:30:00.000Z')
+      },
+      {
+        type: "Beides",
+        time: new Date('2026-01-05T15:45:00.000Z')
+      },
+      {
+        type: "Urin",
+        time: new Date('2026-01-05T18:10:00.000Z')
+      },
+      {
+        type: "Stuhl",
+        time: new Date('2026-01-06T08:20:00.000Z')
+      },
+      {
+        type: "Urin",
+        time: new Date('2026-01-06T11:40:00.000Z')
+      },
+      {
+        type: "Beides",
+        time: new Date('2026-01-06T14:50:00.000Z')
+      },
+      {
+        type: "Urin",
+        time: new Date('2026-01-07T08:05:00.000Z')
+      },
+      {
+        type: "Stuhl",
+        time: new Date('2026-01-07T12:15:00.000Z')
+      },
+      {
+        type: "Beides",
+        time: new Date('2026-01-07T16:30:00.000Z')
+      },
+      {
+        type: "Urin",
+        time: new Date('2026-01-08T08:40:00.000Z')
+      },
+      {
+        type: "Stuhl",
+        time: new Date('2026-01-08T11:20:00.000Z')
+      },
+      {
+        type: "Urin",
+        time: new Date('2026-01-09T08:10:00.000Z')
+      },
+      {
+        type: "Beides",
+        time: new Date('2026-01-09T13:45:00.000Z')
+      },
+      {
+        type: "Stuhl",
+        time: new Date('2026-01-10T08:50:00.000Z')
+      },
+      {
+        type: "Urin",
+        time: new Date('2026-01-10T12:25:00.000Z')
+      },
+      {
+        type: "Beides",
+        time: new Date('2026-01-11T00:00:00.000Z')
+      }
+    ];
+    return diaperTestData;
   }
 }

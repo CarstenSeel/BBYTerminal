@@ -1,81 +1,39 @@
-.DashboardContainer{
-    display: flex;
-    flex-basis: 100%;
-    flex-direction: column;
-    min-height: 100vh;
+.contentCard{
+    max-height: calc(100vh - 60.85px);
+    min-height: calc(100vh - 60.85px);
 }
 
-.header{
-    display: flex;
-    flex-basis: 10%;
-}
-
-.card{
-    display: flex;
-    flex-basis: 100%;
+.mainCard{
     padding: 0px;
 }
 
-.cardContent{
-    display: flex;
-    flex-basis: 100%;
+.contentCardContent{
+    margin: 24px !important;
 }
 
-.sidebarToggleBtn{
-    display: flex;
-    flex-basis: 25%;
-    justify-content: start;
-    align-items: center;
-    margin-left: 12px;
+.diaperChart{
+    min-height: 100%;
+    max-height: 100%;
+    min-width: 100%;
+    max-width: 100%;
 }
 
-.sidebarBtnToggle{
+.addBTN{
+    margin-right: 60px;
     cursor: pointer;
+    color: rgba(0, 200, 250, 1);
+    height: 48px;
+    width: 48px;
+    font-size: 48px;
+    margin-bottom: 24px;
 }
 
-.HeaderText{
-    display: flex;
-    flex-basis: 50%;
-    justify-content: center;
-    align-items: center;
-    margin-left: 12px;
-    margin-right: 12px;
-}
-
-.HeaderDatepicker{
-    display: flex;
-    flex-basis: 25%;
-    justify-content: end;
-    align-items: center;
-    margin-right: 12px;
-}
-
-.startDatePicker{
-    margin-right: 12px;
-    display: flex;
-    min-height: 100%;
-}
-
-::ng-deep .mat-form-field-wrapper{
-    padding-bottom: 0px;
-}
-
-::ng-deep .mat-form-field-flex{
-    align-items: center !important;
-    min-height: 100%;
-}
-
-.mainPage{
-    min-height: 100%;
-}
-
-.sidebarBtn{
-    padding: 12px 12px 0px 12px;
+.removeBTN{
+    margin-left: 60px;
     cursor: pointer;
-}
-
-.Sidebar{
-    background: rgba(0, 200, 250, 0.3);
-    border: 1px solid #000000;
-    min-height: 100%;
+    color: rgba(0, 200, 250, 1);
+    height: 48px;
+    width: 48px;
+    font-size: 48px;
+    margin-bottom: 24px;
 }

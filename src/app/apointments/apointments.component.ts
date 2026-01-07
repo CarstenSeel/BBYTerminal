@@ -48,7 +48,7 @@ export class ApointmentsComponent implements OnInit {
     this.dataShareEndDateSubscription = this.dataShare.currentEndDate.subscribe(data =>{
       this.endDate = data;
       this.applyDateFilter();
-    })
+    });
   }
 
   editDialog(appoint){

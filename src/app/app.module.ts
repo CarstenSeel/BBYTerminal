@@ -10,7 +10,7 @@ import { DiapersComponent } from './diapers/diapers.component';
 import { AppRoutingModule } from './/app-routing.module';
 import {MatCardModule} from '@angular/material/card';
 import {MatIconModule} from '@angular/material/icon';
-import { MAT_DATE_LOCALE, MatButtonModule, MatDatepickerModule, MatDialogModule, MatDividerModule, MatFormFieldModule, MatInput, MatInputModule, MatMenuModule, MatNativeDateModule, MatOptionModule, MatSelectModule } from '@angular/material';
+import { MAT_DATE_LOCALE, MatButtonModule, MatDatepickerModule, MatDialogModule, MatDividerModule, MatFormFieldModule, MatInput, MatInputModule, MatMenuModule, MatNativeDateModule, MatOptionModule, MatRadioModule, MatSelectModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -28,6 +28,8 @@ import { CreateSizeDialogComponent } from './size/dialogs/createDialog/createSiz
 import { DeleteSizeDialogComponent } from './size/dialogs/deleteDialog/deleteSizeDialog.component';
 import { CreateWeightDialogComponent } from './weight/dialogs/createDialog/createWeightDialog.component';
 import { DeleteWeightDialogComponent } from './weight/dialogs/deleteDialog/deleteWeightDialog.component';
+import { DeleteDiaperDialogComponent } from './diapers/dialogs/deleteDialog/deleteDiaperDialog.component';
+import { CreateDiaperDialogComponent } from './diapers/dialogs/createDialog/createDiaperDialog.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +49,9 @@ import { DeleteWeightDialogComponent } from './weight/dialogs/deleteDialog/delet
     CreateSizeDialogComponent,
     DeleteSizeDialogComponent,
     CreateWeightDialogComponent,
-    DeleteWeightDialogComponent
+    DeleteWeightDialogComponent,
+    CreateDiaperDialogComponent,
+    DeleteDiaperDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -69,7 +73,8 @@ import { DeleteWeightDialogComponent } from './weight/dialogs/deleteDialog/delet
     OwlNativeDateTimeModule,
     ChartsModule,
     MatOptionModule,
-    MatSelectModule
+    MatSelectModule,
+    MatRadioModule
   ],
   providers: [
         DataShareService,
@@ -104,7 +109,9 @@ import { DeleteWeightDialogComponent } from './weight/dialogs/deleteDialog/delet
     CreateSizeDialogComponent,
     DeleteSizeDialogComponent,
     CreateWeightDialogComponent,
-    DeleteWeightDialogComponent
+    DeleteWeightDialogComponent,
+    CreateDiaperDialogComponent,
+    DeleteDiaperDialogComponent
   ]
 })
 export class AppModule { }
