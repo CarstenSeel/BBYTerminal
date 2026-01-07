@@ -120,21 +120,21 @@ export class DiapersComponent implements OnInit {
   removeDiaper(){
     var diapersbackup = this.diapersbackup;
     let dialogRef = this.dialog.open(DeleteDiaperDialogComponent, {data: {diapersbackup}});
-        dialogRef.afterClosed().subscribe((result) => {
-          if(result){
-            this.diapersbackup.splice(result.index,1);
-            this.dataShare.changeDiapers(this.diapersbackup);
-          }
-        });
+    dialogRef.afterClosed().subscribe((result) => {
+      if(result){
+        this.diapersbackup.splice(result.index,1);
+        this.dataShare.changeDiapers(this.diapersbackup);
+      }
+    });
   }
 
   addDiaper(){
     let dialogRef = this.dialog.open(CreateDiaperDialogComponent);
-        dialogRef.afterClosed().subscribe((result) =>{
-          if(result){
-            this.diapersbackup.push(result);
-            this.dataShare.changeDiapers(this.diapersbackup);
-          }
-        });
+    dialogRef.afterClosed().subscribe((result) =>{
+      if(result){
+        this.diapersbackup.push(result);
+        this.dataShare.changeDiapers(this.diapersbackup);
+      }
+    });
   }
 }

@@ -1,0 +1,30 @@
+<div fxLayout="column" class="minCard">
+    <h1>Mahlzeit hinzufügen</h1>
+    <form [formGroup]="form" fxLayout="column" fxFlex="0 0 100">
+        <p class="inputLabel">Essensart:</p>
+        <div fxFlex="1 0 auto">
+            <mat-radio-group fxFlex="1 0 auto" formControlName="type">
+                <mat-radio-button value="Milch" class="customRadio">Milch</mat-radio-button>
+                <mat-radio-button value="Beikost" class="customRadio">Beikost</mat-radio-button>
+            </mat-radio-group>
+        </div>
+        <p class="inputLabel">Menge:</p>
+        <mat-form-field fxFlex="1 0 auto">
+            <input matInput class="customInput" formControlName="amount">
+            <mat-error *ngIf="form.controls.amount.hasError('required')">
+                Bitte eine gültige Menge angeben
+            </mat-error>
+        </mat-form-field>
+        <p class="inputLabelTime">Zeitpunkt:</p>
+        <mat-form-field class="startDatePicker" fxFlex="1 0 auto">
+            <input matInput [disabled]="true" [matDatepicker]="time" formControlName="time" style="width: 90%;">
+            <mat-datepicker-toggle matIconSuffix [for]="time" [disabled]="false"></mat-datepicker-toggle>
+            <mat-datepicker #time [disabled]="false"></mat-datepicker>
+        </mat-form-field>
+    </form>
+ 
+    <div fxFlex="0 1 auto" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center">
+        <button class="borderRadius" fxFlex="0 1 50" mat-raised-button (click)="saveChanges()">Speichern</button>
+        <button class="borderRadius" fxFlex="0 1 50" mat-raised-button (click)="closeDialog()">Abbrechen</button>
+    </div>
+</div>

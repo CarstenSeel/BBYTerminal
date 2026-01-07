@@ -49,6 +49,11 @@ interface PieChart{
     radius: 200
   }
 }
+interface Food{
+  type: String,
+  amount: number,
+  time: Date
+}
 
 @Component({
   selector: 'app-dashboard',
@@ -60,8 +65,8 @@ export class DashboardComponent implements OnInit {
   sizeTestChart: Chart;
   weightTestChart: Chart;
   diaperTestData: Diaper[];
-  diaperTestChart: PieChart;
   chart: any;
+  foodTestData: Food[];
   constructor(
     private dataShare: DataShareService,
   ) {
@@ -81,6 +86,8 @@ export class DashboardComponent implements OnInit {
     this.dataShare.changeWeightTestChart(this.weightTestChart);
     this.diaperTestData = this.createDummyDiaper(this.diaperTestData);
     this.dataShare.changeDiapers(this.diaperTestData);
+    this.foodTestData = this.createDummyFood(this.foodTestData);
+    this.dataShare.changeFood(this.foodTestData);
   }
 
 
@@ -275,5 +282,81 @@ export class DashboardComponent implements OnInit {
       }
     ];
     return diaperTestData;
+  }
+
+  createDummyFood(foodTestData){
+    foodTestData = [
+      {
+        type: "Milch",
+        amount: 150,
+        time: new Date("2026-01-05T00:00:00")
+      },
+      {
+        type: "Beikost",
+        amount: 50,
+        time: new Date("2026-01-05T00:00:00")
+      },
+      {
+        type: "Milch",
+        amount: 100,
+        time: new Date("2026-01-06T00:00:00")
+      },
+      {
+        type: "Beikost",
+        amount: 30,
+        time: new Date("2026-01-07T00:00:00")
+      },
+      {
+        type: "Milch",
+        amount: 120,
+        time: new Date("2026-01-08T00:00:00")
+      },
+      {
+        type: "Beikost",
+        amount: 40,
+        time: new Date("2026-01-09T00:00:00")
+      },
+      {
+        type: "Milch",
+        amount: 80,
+        time: new Date("2026-01-10T00:00:00")
+      },
+      {
+        type: "Beikost",
+        amount: 20,
+        time: new Date("2026-01-05T00:00:00")
+      },
+      {
+        type: "Milch",
+        amount: 90,
+        time: new Date("2026-01-06T00:00:00")
+      },
+      {
+        type: "Beikost",
+        amount: 60,
+        time: new Date("2026-01-08T00:00:00")
+      },
+      {
+        type: "Milch",
+        amount: 110,
+        time: new Date("2026-01-09T00:00:00")
+      },
+      {
+        type: "Beikost",
+        amount: 25,
+        time: new Date("2026-01-11T00:00:00")
+      },
+      {
+        type: "Milch",
+        amount: 70,
+        time: new Date("2026-01-06T00:00:00")
+      },
+      {
+        type: "Beikost",
+        amount: 35,
+        time: new Date("2026-01-10T00:00:00")
+      }
+    ];
+    return foodTestData;
   }
 }

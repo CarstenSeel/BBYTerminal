@@ -1,2 +1,48 @@
-<div class="DashboardContainer">
+<div fxFlex="100" fxLayout="column" class="contentCard">
+    <!-- content room -->
+  <div fxFlex="0 1 100" fxLayout="column" style="overflow: auto;">
+    <mat-card class="mainCard">
+      <mat-card-header class="mainCardTitle" fxLayoutAlign="center center">
+        <h1>Essen</h1>
+      </mat-card-header>
+      <mat-divider></mat-divider>
+      <mat-card-content class="contentCardContent" fxLayout="row">
+        <div fxFlex="0 0 90" fxLayout="column">
+            <canvas id="FoodChart" class="foodChart">{{Chart}}</canvas>
+        </div>
+        <div fxFlex="0 0 10" fxLayout="column">
+            <p class="lbl">Alter des Kindes in Monaten:</p>
+            <mat-form-field>
+                <mat-select [(value)]="selected" (selectionChange)="selectedChange()">
+                    <mat-option value="1">1</mat-option>
+                    <mat-option value="2">2</mat-option>
+                    <mat-option value="3">3</mat-option>
+                    <mat-option value="4">4</mat-option>
+                    <mat-option value="5">5</mat-option>
+                    <mat-option value="6">6</mat-option>
+                    <mat-option value="7">7</mat-option>
+                    <mat-option value="8">8</mat-option>
+                    <mat-option value="9">9</mat-option>
+                    <mat-option value="10">10</mat-option>
+                    <mat-option value="11">11</mat-option>
+                    <mat-option value="12">12</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <p class="lbl">Empf. Tagesmenge:</p>
+            <p fxLayoutAlign="center center">{{dailyFood}}ml</p>
+            <p class="lbl">Empf. Beikostmenge:</p>
+            <p fxLayoutAlign="center center">{{dailyHardFood}}g</p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <!-- btn room  -->
+  <div fxFlex="0 1 10" fxLayoutAlign="end" fxLayout="row">
+    <div fxFlex="1 1 50" fxLayout="row" fxLayoutAlign="start center">
+      <mat-icon (click)="removeFood()" class="addBTN">remove_circle</mat-icon>
+    </div>
+    <div fxFlex="1 1 50" fxLayout="row" fxLayoutAlign="end center">
+      <mat-icon (click)="addFood()" class="addBTN">add_circle</mat-icon>
+    </div>
+  </div>
 </div>

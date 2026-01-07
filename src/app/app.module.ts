@@ -30,6 +30,8 @@ import { CreateWeightDialogComponent } from './weight/dialogs/createDialog/creat
 import { DeleteWeightDialogComponent } from './weight/dialogs/deleteDialog/deleteWeightDialog.component';
 import { DeleteDiaperDialogComponent } from './diapers/dialogs/deleteDialog/deleteDiaperDialog.component';
 import { CreateDiaperDialogComponent } from './diapers/dialogs/createDialog/createDiaperDialog.component';
+import { CreateFoodDialogComponent } from './food/dialogs/createDialog/createFoodDialog.component';
+import { DeleteFoodDialogComponent } from './food/dialogs/deleteDialog/deleteFoodDialog.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +53,9 @@ import { CreateDiaperDialogComponent } from './diapers/dialogs/createDialog/crea
     CreateWeightDialogComponent,
     DeleteWeightDialogComponent,
     CreateDiaperDialogComponent,
-    DeleteDiaperDialogComponent
+    DeleteDiaperDialogComponent,
+    CreateFoodDialogComponent,
+    DeleteFoodDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -111,7 +115,9 @@ import { CreateDiaperDialogComponent } from './diapers/dialogs/createDialog/crea
     CreateWeightDialogComponent,
     DeleteWeightDialogComponent,
     CreateDiaperDialogComponent,
-    DeleteDiaperDialogComponent
+    DeleteDiaperDialogComponent,
+    CreateFoodDialogComponent,
+    DeleteFoodDialogComponent
   ]
 })
 export class AppModule { }
