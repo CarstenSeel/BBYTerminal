@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { DataShareService } from '../Service/dataShare.service';
 import { Chart } from 'chart.js';
 import { Subscription } from 'rxjs';
+import { CalendarEvent } from 'angular-calendar';
 
 interface Appointment{
   title: String,
@@ -34,6 +35,7 @@ interface Sleep{
 })
 export class DashboardComponent implements OnInit {
   
+  appointmentViewDate: Date  = new Date();
   weightChartSubscription: Subscription;
   weightChart: any;
   dataChart: any;
@@ -47,8 +49,12 @@ export class DashboardComponent implements OnInit {
   diaperChart: any;
   diapers: Diaper[];
   diapersbackup: Diaper[];
+  appointEvents: CalendarEvent[] = []; //start, title, color
+  appointments: Appointment[];
+  appointmentSubscription: Subscription;
   constructor(
     private dataShare: DataShareService,
+    private _router: Router,
   ) {
     
   }
@@ -74,14 +80,32 @@ export class DashboardComponent implements OnInit {
       this.diapersbackup = data;
       this.applyDateFilter();
     });
+
     this.dataShareStartDateSubscription = this.dataShare.currentStartDate.subscribe(data =>{
       this.startDate = data;
       this.applyDateFilter();
     });
+
     this.dataShareEndDateSubscription = this.dataShare.currentEndDate.subscribe(data =>{
       this.endDate = data;
       this.applyDateFilter();
     });
+
+    this.appointmentSubscription = this.dataShare.currentAppointments.subscribe(data =>{
+      this.appointments = data;
+      this.appointments.forEach(e =>{
+        var color = {
+          primary: 'rgba(0, 200, 250, 0.3)',
+          secondary : 'rgba(0, 200, 250, 0.3)'
+        }
+        var event = {
+          title: e.title.toString(),
+          start: e.appointmentTime,
+          color: color
+        };
+        this.appointEvents.push(event);
+      });
+    })
   }
 
   applyDateFilter(){
@@ -136,4 +160,23 @@ export class DashboardComponent implements OnInit {
     }
     this.diaperChart = new Chart("diaperChart",this.dataChart);
   }
+
+  appointDateMinusOneMnth(){
+    this.appointmentViewDate = new Date(new Date(this.appointmentViewDate).setMonth(this.appointmentViewDate.getMonth() - 1));
+  }
+
+  appointDatePlusOneMnth(){
+    this.appointmentViewDate = new Date(new Date(this.appointmentViewDate).setMonth(this.appointmentViewDate.getMonth() + 1));
+  }
+
+  appointEventClicked(event){
+    console.log("event = ",event.event.start);
+    this.dataShare.changeEndDate(event.event.start);
+    this.dataShare.changeStartDate(event.event.start);
+    console.log("dates = ",this.startDate,this.endDate);
+    this._router.navigateByUrl("/apointments");
+    console.log("event", event);
+  }
+
+  //on destroy hinzufügen
 }

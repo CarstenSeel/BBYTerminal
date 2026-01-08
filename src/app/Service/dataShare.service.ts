@@ -38,6 +38,8 @@ export class DataShareService{
     }
 
     changeStartDate(startDate: any){
+        console.log("old date = ",this.currentStartDate);
+        console.log("new date = ",startDate);
         this.startDate.next(startDate);
     }
 

@@ -34,6 +34,8 @@ import { CreateFoodDialogComponent } from './food/dialogs/createDialog/createFoo
 import { DeleteFoodDialogComponent } from './food/dialogs/deleteDialog/deleteFoodDialog.component';
 import { CreateSleepDialogComponent } from './sleep/dialogs/createDialog/createSleepDialog.component';
 import { DeleteSleepDialogComponent } from './sleep/dialogs/deleteDialog/deleteSleepDialog.component';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 @NgModule({
   declarations: [
@@ -82,7 +84,11 @@ import { DeleteSleepDialogComponent } from './sleep/dialogs/deleteDialog/deleteS
     ChartsModule,
     MatOptionModule,
     MatSelectModule,
-    MatRadioModule
+    MatRadioModule,
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    }),
   ],
   providers: [
         DataShareService,

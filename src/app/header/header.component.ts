@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataShareService } from '../Service/dataShare.service';
-import { FormControl } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 interface Appointment{
   title: String,
@@ -76,6 +77,8 @@ export class HeaderComponent implements OnInit {
   diaperTestData: Diaper[];
   foodTestData: Food[];
   sleepTestData: Sleep[];
+  endDateSubscription: Subscription;
+  startDateSubscription: Subscription;
   constructor(
     private dataShare: DataShareService,
   ) { }
@@ -93,8 +96,8 @@ export class HeaderComponent implements OnInit {
     }
     this.startDateDefault.setValue(this.startDate);
     this.endDateDefault.setValue(this.endDate);
-    this.dataShare.changeStartDate(this.startDate);
-    this.dataShare.changeEndDate(this.endDate);
+    this.dataShare.changeStartDate(this.startDateDefault.value);
+    this.dataShare.changeEndDate(this.endDateDefault.value);
     this.appointmentsTestData = this.createDummyappointments(this.appointmentsTestData);
     this.dataShare.changeAppointments(this.appointmentsTestData);
     this.sizeTestChart = this.createDummySizeChart(this.sizeTestChart);
@@ -107,6 +110,14 @@ export class HeaderComponent implements OnInit {
     this.dataShare.changeFood(this.foodTestData);
     this.sleepTestData = this.createDummySleep(this.sleepTestData);
     this.dataShare.changeSleep(this.sleepTestData);
+
+    this.startDateSubscription = this.dataShare.currentStartDate.subscribe(data =>{
+      this.startDateDefault.setValue(data);
+    });
+
+    this.endDateSubscription = this.dataShare.currentEndDate.subscribe(data =>{
+      this.endDateDefault.setValue(data);
+    });
   }
 
   toggleSidebar(){
@@ -115,13 +126,11 @@ export class HeaderComponent implements OnInit {
   }
 
   startDateChange(event){
-    this.startDate = event.value;
-    this.dataShare.changeStartDate(this.startDate);
+    this.dataShare.changeStartDate(event.value);
   }
 
   endDateChange(event){
-    this.endDate = event.value;
-    this.dataShare.changeEndDate(this.endDate);
+    this.dataShare.changeEndDate(event.value);
   }
 
   createDummyappointments(appointmentsTestData){

@@ -9,7 +9,21 @@
       <mat-card-content class="contentCardContent">
             <div fxFlex="1 1 100" fxLayout="column">
                 <div fxFlex="0 0 50" fxLayout="row">
-                    <div fxFlex="0 0 auto" class="dshbrdContainer">Termine</div>
+                    <div fxFlex="0 0 auto" class="dshbrdContainer" fxLayout="column">
+                        <div fxFlex="0 0 10" fxLayout="row" fxLayoutAlign="center center">
+                            <mat-icon (click)="appointDateMinusOneMnth()" style="cursor: pointer;">keyboard_arrow_left</mat-icon>
+                            <h3>{{appointmentViewDate | date: 'MMM.yyyy'}}</h3>
+                            <mat-icon (click)="appointDatePlusOneMnth()" style="cursor: pointer;">keyboard_arrow_right</mat-icon>
+                        </div>
+                        <div fxFlex="0 0 90" style="display: flex;">
+                            <mwl-calendar-month-view
+                                [viewDate]="appointmentViewDate"
+                                [events]="appointEvents"
+                                (eventClicked)="appointEventClicked($event)"
+                                class="cldr">
+                            </mwl-calendar-month-view>
+                        </div>
+                    </div>
                     <div fxFlex="0 0 auto" class="dshbrdContainer">
                         <canvas id="sizeChart" class="chart">{{sizeChart}}</canvas>
                     </div>
