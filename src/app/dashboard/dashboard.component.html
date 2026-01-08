@@ -8,14 +8,18 @@
       <mat-divider></mat-divider>
       <mat-card-content class="contentCardContent">
             <div fxFlex="1 1 100" fxLayout="column">
-                <div fxFlex="0 0 50" fxLayout="row">
+                <div fxFlex="0 0 50" fxLayout="row" fxLayoutAlign="space-evenly">
+                    <!-- Appointments -->
                     <div fxFlex="0 0 auto" class="dshbrdContainer" fxLayout="column">
+                        <div fxFlex="0 0 10" fxLayout="row" fxLayoutAlign="center center">
+                            <h2>Arzttermine</h2>
+                        </div>
                         <div fxFlex="0 0 10" fxLayout="row" fxLayoutAlign="center center">
                             <mat-icon (click)="appointDateMinusOneMnth()" style="cursor: pointer;">keyboard_arrow_left</mat-icon>
                             <h3>{{appointmentViewDate | date: 'MMM.yyyy'}}</h3>
                             <mat-icon (click)="appointDatePlusOneMnth()" style="cursor: pointer;">keyboard_arrow_right</mat-icon>
                         </div>
-                        <div fxFlex="0 0 90" style="display: flex;">
+                        <div fxFlex="0 0 auto" style="display: flex;" class="calendarcntr">
                             <mwl-calendar-month-view
                                 [viewDate]="appointmentViewDate"
                                 [events]="appointEvents"
@@ -24,19 +28,75 @@
                             </mwl-calendar-month-view>
                         </div>
                     </div>
-                    <div fxFlex="0 0 auto" class="dshbrdContainer">
-                        <canvas id="sizeChart" class="chart">{{sizeChart}}</canvas>
+                    <!-- Size -->
+                    <div fxFlex="0 0 auto" class="dshbrdContainer" fxLayout="column">
+                        <div fxFlex="0 0 10" fxLayout="row" fxLayoutAlign="center center">
+                            <h3>Größe</h3>
+                        </div>
+                        <div fxFlex="0 0 auto" class="chart">
+                            <canvas id="sizeChart" class="chart">{{sizeChart}}</canvas>
+                        </div>
                     </div>
-                    <div fxFlex="0 0 auto" class="dshbrdContainer">
-                        <canvas id="weightChart" class="chart">{{weightChart}}</canvas>
+                    <!-- Weight -->
+                    <div fxFlex="0 0 auto" class="dshbrdContainer" fxLayout="column">
+                        <div fxFlex="0 0 10" fxLayout="row" fxLayoutAlign="center center">
+                            <h3>Gewicht</h3>
+                        </div>
+                        <div fxFlex="0 0 auto" class="chart">
+                            <canvas id="weightChart" class="chart">{{weightChart}}</canvas>
+                        </div>
                     </div>
+
                 </div>
-                <div fxFlex="0 0 50" fxLayout="row">
-                    <div fxFlex="0 0 auto" class="dshbrdContainer">
-                        <canvas id="diaperChart" class="diaperChart">{{diaperChart}}</canvas>
+                <div fxFlex="0 0 50" fxLayout="row" fxLayoutAlign="space-evenly">
+                    <!-- Diapers -->
+                    <div fxFlex="0 0 auto" class="dshbrdContainer" fxLayout="column">
+                        <div fxFlex="0 0 10" fxLayout="row" fxLayoutAlign="center center">
+                            <h3>Windeln</h3>
+                        </div>
+                        <div fxFlex="0 0 auto" fxLayoutAlign="center center">
+                            <canvas id="diaperChart" class="diaperChart">{{diaperChart}}</canvas>
+                        </div>
                     </div>
-                    <div fxFlex="0 0 auto" class="dshbrdContainer">Essen</div>
-                    <div fxFlex="0 0 auto" class="dshbrdContainer">Schlaf</div>
+                    <!-- Food -->
+                    <div fxFlex="0 0 auto" class="dshbrdContainer" fxLayout="column">
+                        <div fxFlex="0 0 10" fxLayout="row" fxLayoutAlign="center center">
+                            <h2>Essen</h2>
+                        </div>
+                        <div fxFlex="0 0 10" fxLayout="row" fxLayoutAlign="center center">
+                            <mat-icon (click)="foodDateMinusOneMnth()" style="cursor: pointer;">keyboard_arrow_left</mat-icon>
+                            <h3>{{foodViewDate | date: 'MMM.yyyy'}}</h3>
+                            <mat-icon (click)="foodDatePlusOneMnth()" style="cursor: pointer;">keyboard_arrow_right</mat-icon>
+                        </div>
+                        <div fxFlex="0 0 auto" style="display: flex;" class="calendarcntr">
+                            <mwl-calendar-month-view
+                                [viewDate]="foodViewDate"
+                                [events]="foodEvents"
+                                (eventClicked)="foodEventClicked($event)"
+                                class="cldr">
+                            </mwl-calendar-month-view>
+                        </div>
+                    </div>
+                    <!-- Sleep -->
+                    <div fxFlex="0 0 auto" class="dshbrdContainer" fxLayout="column">
+                        <div fxFlex="0 0 10" fxLayout="row" fxLayoutAlign="center center">
+                            <h2>Schlaf</h2>
+                        </div>
+                        <div fxFlex="0 0 10" fxLayout="row" fxLayoutAlign="center center">
+                            <mat-icon (click)="sleepDateMinusOneMnth()" style="cursor: pointer;">keyboard_arrow_left</mat-icon>
+                            <h3>{{sleepViewDate | date: 'MMM.yyyy'}}</h3>
+                            <mat-icon (click)="sleepDatePlusOneMnth()" style="cursor: pointer;">keyboard_arrow_right</mat-icon>
+                        </div>
+                        <div fxFlex="0 0 auto" style="display: flex;" class="calendarcntr">
+                            <mwl-calendar-month-view
+                                [viewDate]="sleepViewDate"
+                                [events]="sleepEvents"
+                                (eventClicked)="sleepEventClicked($event)"
+                                class="cldr">
+                            </mwl-calendar-month-view>
+                        </div>
+                    </div>
+
                 </div>
             </div>
       </mat-card-content>

@@ -52,6 +52,14 @@ export class DashboardComponent implements OnInit {
   appointEvents: CalendarEvent[] = []; //start, title, color
   appointments: Appointment[];
   appointmentSubscription: Subscription;
+  foodEvents: CalendarEvent[] = [];
+  foods: Food[];
+  foodSubscription: Subscription;
+  foodViewDate: Date = new Date();
+  sleepEvents:CalendarEvent[] = [];
+  sleeps: Sleep[];
+  sleepSubscription: Subscription;
+  sleepViewDate: Date = new Date();
   constructor(
     private dataShare: DataShareService,
     private _router: Router,
@@ -105,7 +113,66 @@ export class DashboardComponent implements OnInit {
         };
         this.appointEvents.push(event);
       });
-    })
+    });
+
+    this.foodSubscription = this.dataShare.currentFoodTestData.subscribe(data =>{
+      this.foods = data;
+      var days = [];
+      this.foods.forEach(e =>{
+        if(days.length == 0){
+          days.push(e.time);
+        }
+        else{
+          if(!days.find((element) => element.getTime() == e.time.getTime())){
+            days.push(e.time);
+          }
+        }
+      });
+      days.forEach(d =>{
+        var color = {
+          primary: 'rgba(0, 200, 250, 0.3)',
+          secondary : 'rgba(0, 200, 250, 0.3)'
+        };
+        var event = {
+          title: 'gefüttert',
+          start: d,
+          color: color
+        };
+        this.foodEvents.push(event);
+      });
+    });
+
+    this.sleepSubscription = this.dataShare.currentSleepTestData.subscribe(data =>{
+      this.sleeps = data;
+      var days = [];
+      this.sleeps.forEach(e =>{
+        var startDay = new Date(e.startDate);
+        startDay.setHours(0);
+        startDay.setMinutes(0);
+        startDay.setSeconds(0);
+        startDay.setMilliseconds(0);
+        if(days.length == 0){
+          days.push(startDay);
+        }
+        else{
+          if(!days.find((element) => element.getTime() == startDay.getTime())){
+            days.push(startDay);
+          }
+        }
+      });
+      days.forEach(d =>{
+        var color = {
+          primary: 'rgba(0, 200, 250, 0.3)',
+          secondary : 'rgba(0, 200, 250, 0.3)'
+        };
+        var event = {
+          title: 'geschlafen',
+          start: d,
+          color: color
+        };
+        this.sleepEvents.push(event);
+      });
+    });
   }
 
   applyDateFilter(){
@@ -169,13 +236,40 @@ export class DashboardComponent implements OnInit {
     this.appointmentViewDate = new Date(new Date(this.appointmentViewDate).setMonth(this.appointmentViewDate.getMonth() + 1));
   }
 
+  sleepDateMinusOneMnth(){
+    this.sleepViewDate = new Date(new Date(this.sleepViewDate).setMonth(this.sleepViewDate.getMonth() - 1));
+  }
+
+  sleepDatePlusOneMnth(){
+    this.sleepViewDate = new Date(new Date(this.sleepViewDate).setMonth(this.sleepViewDate.getMonth() + 1));
+  }
+
+  foodDateMinusOneMnth(){
+    this.foodViewDate = new Date(new Date(this.foodViewDate).setMonth(this.foodViewDate.getMonth() - 1));
+  }
+
+  foodDatePlusOneMnth(){
+    this.foodViewDate = new Date(new Date(this.foodViewDate).setMonth(this.foodViewDate.getMonth() + 1));
+  }
+
   appointEventClicked(event){
-    console.log("event = ",event.event.start);
     this.dataShare.changeEndDate(event.event.start);
     this.dataShare.changeStartDate(event.event.start);
-    console.log("dates = ",this.startDate,this.endDate);
     this._router.navigateByUrl("/apointments");
-    console.log("event", event);
+  }
+
+  sleepEventClicked(event){
+    this.dataShare.changeStartDate(event.event.start);
+    var newEndDate = new Date();
+    newEndDate.setTime(event.event.start.getTime() + (3600000 * 24));
+    this.dataShare.changeEndDate(newEndDate);
+    this._router.navigateByUrl("/sleep");
+  }
+
+  foodEventClicked(event){
+    this.dataShare.changeEndDate(event.event.start);
+    this.dataShare.changeStartDate(event.event.start);
+    this._router.navigateByUrl("/food");
   }
 
   //on destroy hinzufügen
