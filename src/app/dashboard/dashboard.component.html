@@ -1,2 +1,31 @@
-<div class="DashboardContainer">
+<div fxFlex="100" fxLayout="column" class="contentCard">
+    <!-- content room -->
+  <div fxFlex="0 1 100" fxLayout="column" style="overflow: auto;">
+    <mat-card class="mainCard">
+      <mat-card-header class="mainCardTitle" fxLayoutAlign="center center">
+        <h1>Dashboard</h1>
+      </mat-card-header>
+      <mat-divider></mat-divider>
+      <mat-card-content class="contentCardContent">
+            <div fxFlex="1 1 100" fxLayout="column">
+                <div fxFlex="0 0 50" fxLayout="row">
+                    <div fxFlex="0 0 auto" class="dshbrdContainer">Termine</div>
+                    <div fxFlex="0 0 auto" class="dshbrdContainer">
+                        <canvas id="sizeChart" class="chart">{{sizeChart}}</canvas>
+                    </div>
+                    <div fxFlex="0 0 auto" class="dshbrdContainer">
+                        <canvas id="weightChart" class="chart">{{weightChart}}</canvas>
+                    </div>
+                </div>
+                <div fxFlex="0 0 50" fxLayout="row">
+                    <div fxFlex="0 0 auto" class="dshbrdContainer">
+                        <canvas id="diaperChart" class="diaperChart">{{diaperChart}}</canvas>
+                    </div>
+                    <div fxFlex="0 0 auto" class="dshbrdContainer">Essen</div>
+                    <div fxFlex="0 0 auto" class="dshbrdContainer">Schlaf</div>
+                </div>
+            </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
 </div>
