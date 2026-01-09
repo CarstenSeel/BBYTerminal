@@ -36,35 +36,38 @@ import { CreateSleepDialogComponent } from './sleep/dialogs/createDialog/createS
 import { DeleteSleepDialogComponent } from './sleep/dialogs/deleteDialog/deleteSleepDialog.component';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { HeaderModule } from './header/header.module';
+import { SidebarModule } from './sidebar/sidebar.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DashboardComponent,
-    FoodComponent,
-    SleepComponent,
-    SizeComponent,
-    DiapersComponent,
-    ApointmentsComponent,
-    WeightComponent,
-    HeaderComponent,
-    SidebarComponent,
-    DeleteDialogComponent,
-    CreateDialogComponent,
-    EditDialogComponent,
-    CreateSizeDialogComponent,
-    DeleteSizeDialogComponent,
-    CreateWeightDialogComponent,
-    DeleteWeightDialogComponent,
-    CreateDiaperDialogComponent,
-    DeleteDiaperDialogComponent,
-    CreateFoodDialogComponent,
-    DeleteFoodDialogComponent,
-    CreateSleepDialogComponent,
-    DeleteSleepDialogComponent
+    // DashboardComponent,
+    // FoodComponent,
+    // SleepComponent,
+    // SizeComponent,
+    // DiapersComponent,
+    //ApointmentsComponent,
+    // WeightComponent,
+    // HeaderComponent,
+    // DeleteDialogComponent,
+    // CreateDialogComponent,
+    // EditDialogComponent,
+    // CreateSizeDialogComponent,
+    // DeleteSizeDialogComponent,
+    // CreateWeightDialogComponent,
+    // DeleteWeightDialogComponent,
+    // CreateDiaperDialogComponent,
+    // DeleteDiaperDialogComponent,
+    // CreateFoodDialogComponent,
+    // DeleteFoodDialogComponent,
+    // CreateSleepDialogComponent,
+    // DeleteSleepDialogComponent
   ],
   imports: [
     BrowserModule,
+    HeaderModule,
+    SidebarModule,
     AppRoutingModule,
     MatIconModule,
     MatCardModule,
@@ -117,19 +120,19 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
       ],
   bootstrap: [AppComponent],
   entryComponents: [
-    DeleteDialogComponent,
-    CreateDialogComponent,
-    EditDialogComponent,
-    CreateSizeDialogComponent,
-    DeleteSizeDialogComponent,
-    CreateWeightDialogComponent,
-    DeleteWeightDialogComponent,
-    CreateDiaperDialogComponent,
-    DeleteDiaperDialogComponent,
-    CreateFoodDialogComponent,
-    DeleteFoodDialogComponent,
-    CreateSleepDialogComponent,
-    DeleteSleepDialogComponent
+    // DeleteDialogComponent,
+    // CreateDialogComponent,
+    // EditDialogComponent,
+    // CreateSizeDialogComponent,
+    // DeleteSizeDialogComponent,
+    // CreateWeightDialogComponent,
+    // DeleteWeightDialogComponent,
+    // CreateDiaperDialogComponent,
+    // DeleteDiaperDialogComponent,
+    // CreateFoodDialogComponent,
+    // DeleteFoodDialogComponent,
+    // CreateSleepDialogComponent,
+    // DeleteSleepDialogComponent
   ]
 })
 export class AppModule { }
