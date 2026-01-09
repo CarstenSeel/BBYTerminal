@@ -33,6 +33,11 @@ interface Size{
   time: Date;
 }
 
+interface Weight{
+  weight: number;
+  time: Date;
+}
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -41,7 +46,9 @@ interface Size{
 export class DashboardComponent implements OnInit {
   
   appointmentViewDate: Date  = new Date();
-  weightChartSubscription: Subscription;
+  weightSubscription: Subscription;
+  weights: Weight[];
+  weightBackup: Weight[];
   weightChart: any;
   dataChart: any;
   sizeSubscription: Subscription;
@@ -75,12 +82,10 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.weightChartSubscription = this.dataShare.currentWeightTestChart.subscribe(data =>{
-        if(this.weightChart){
-          this.weightChart.destroy();
-        }
-        this.dataChart = data;
-        this.weightChart = new Chart("weightChart",this.dataChart);
+    this.weightSubscription = this.dataShare.currentWeightTestData.subscribe(data =>{
+        this.weights = data;
+        this.weightBackup = data;
+        this.applyDateFilter();
       });
 
     this.sizeSubscription = this.dataShare.currentSizeTestData.subscribe(data =>{
@@ -184,8 +189,10 @@ export class DashboardComponent implements OnInit {
     if(this.startDate && this.endDate){
       this.diapers = this.diapersbackup;
       this.sizes = this.sizeBackup;
+      this.weights = this.weightBackup;
       var sizesFound = [];
       var diapersFound = [];
+      var weightsFound = [];
 
       if(this.diapers){
         this.diapers.forEach(e=>{
@@ -206,6 +213,16 @@ export class DashboardComponent implements OnInit {
       }
       this.sizes = sizesFound;
       this.createSizeChart(sizesFound);
+
+      if(this.weights){
+        this.weights.forEach(e=>{
+          if((e.time.getTime() <= this.endDate.getTime() && e.time.getTime() >= this.startDate.getTime())){
+            weightsFound.push(e);
+          }
+        });
+      }
+      this.weights = weightsFound;
+      this.createWeightChart(weightsFound);
     }
   }
 
@@ -247,7 +264,6 @@ export class DashboardComponent implements OnInit {
   }
 
   createSizeChart(sizesFound){
-    console.log("sizesFound", sizesFound);
     if(this.sizeChart){
       this.sizeChart.destroy();
     }
@@ -258,7 +274,6 @@ export class DashboardComponent implements OnInit {
       labels.push(label);
       data.push(e.size);
     });
-    console.log("labels + data = ",labels,data);
     var newChart = {
       type: 'line',
       data: {
@@ -278,7 +293,39 @@ export class DashboardComponent implements OnInit {
     };
 
     this.sizeChart = new Chart("sizeChart",newChart);
+  }
+
+  createWeightChart(weightsFound){
+    if(this.weightChart){
+      this.weightChart.destroy();
     }
+    var labels = [];
+    var data = [];
+    weightsFound.forEach(e =>{
+      var label = e.time.getDate() + "." + (e.time.getMonth() + 1) + "." + e.time.getFullYear();
+      labels.push(label);
+      data.push(e.weight);
+    });
+    var newChart = {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: "Gewichtsverlauf",
+            data: data,
+            borderColor: 'rgb(0, 200, 250)',
+            fill: false
+          }
+        ]
+      },
+      options: {
+        aspectRatio: 2.5
+      }
+    };
+
+    this.weightChart = new Chart("weightChart",newChart);
+  }
 
   appointDateMinusOneMnth(){
     this.appointmentViewDate = new Date(new Date(this.appointmentViewDate).setMonth(this.appointmentViewDate.getMonth() - 1));

@@ -65,6 +65,11 @@ interface Size{
   time: Date;
 }
 
+interface Weight{
+  weight: number;
+  time: Date;
+}
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -78,7 +83,7 @@ export class HeaderComponent implements OnInit {
   sidebarOpen: Boolean = true;
   appointmentsTestData: Appointment[];
   sizeTestChart: Chart;
-  weightTestChart: Chart;
+  weightTestData: Weight[];
   diaperTestData: Diaper[];
   foodTestData: Food[];
   sleepTestData: Sleep[];
@@ -106,8 +111,8 @@ export class HeaderComponent implements OnInit {
     this.dataShare.changeEndDate(this.endDateDefault.value);
     this.appointmentsTestData = this.createDummyappointments(this.appointmentsTestData);
     this.dataShare.changeAppointments(this.appointmentsTestData);
-    this.weightTestChart = this.createDummyWeightChart(this.weightTestChart);
-    this.dataShare.changeWeightTestChart(this.weightTestChart);
+    this.weightTestData = this.createDummyWeight(this.weightTestData);
+    this.dataShare.changeWeight(this.weightTestData);
     this.diaperTestData = this.createDummyDiaper(this.diaperTestData);
     this.dataShare.changeDiapers(this.diaperTestData);
     this.foodTestData = this.createDummyFood(this.foodTestData);
@@ -466,6 +471,7 @@ export class HeaderComponent implements OnInit {
     ];
     return sleepTestData
   }
+
   createDummySize(sizeTestData){
     sizeTestData = [
       {
@@ -494,5 +500,35 @@ export class HeaderComponent implements OnInit {
       }
     ];
     return sizeTestData;
+  }
+
+  createDummyWeight(weightTestData){
+    weightTestData = [
+      {
+        weight: 5,
+        time: new Date("2025-06-01T00:00:00")
+      },
+      {
+        weight: 6.5,
+        time: new Date("2025-07-01T00:00:00")
+      },
+      {
+        weight: 7,
+        time: new Date("2025-08-01T00:00:00")
+      },
+      {
+        weight: 6.8,
+        time: new Date("2025-09-01T00:00:00")
+      },
+      {
+        weight: 7.7,
+        time: new Date("2025-10-01T00:00:00")
+      },
+      {
+        weight: 9.6,
+        time: new Date("2025-11-01T00:00:00")
+      }
+    ];
+    return weightTestData;
   }
 }

@@ -7,20 +7,9 @@ import { Chart } from 'chart.js';
 import { CreateWeightDialogComponent } from './dialogs/createDialog/createWeightDialog.component';
 import { DeleteWeightDialogComponent } from './dialogs/deleteDialog/deleteWeightDialog.component';
 
-interface Chart{
-  type: String,
-  data:{
-    labels: String[],
-    datasets: [{
-      label: String,
-      data: number[],
-      borderColor: String,
-      fill: boolean
-    }]
-  },
-  options:{
-    aspectRatio: number
-  }
+interface Weight{
+  weight: number;
+  time: Date;
 }
 
 @Component({
@@ -30,56 +19,107 @@ interface Chart{
 })
 export class WeightComponent implements OnInit {
   chart: any;
-    chartSubscription: Subscription;
-    testChart: Chart;
-    testChartBackup: Chart;
-    newChart: Chart;
-    constructor(
-      private dataShare: DataShareService,
-      public dialog: MatDialog,
-    ) { }
-  
-    ngOnInit() {
-      this.chartSubscription = this.dataShare.currentWeightTestChart.subscribe(data =>{
-        if(this.chart){
-          this.chart.destroy();
-        }
-        this.testChart = data;
-        this.testChartBackup = this.testChart;
-        this.chart = new Chart("WeightChart",this.testChart);
-      });
+  weightSubscription: Subscription;
+  weights: Weight[];
+  weightBackup: Weight[];
+  startDate: Date;
+  endDate: Date;
+  dataShareStartDateSubscription: Subscription;
+  dataShareEndDateSubscription: Subscription;
+  constructor(
+    private dataShare: DataShareService,
+    public dialog: MatDialog,
+  ) { }
+
+  ngOnInit() {
+    this.weightSubscription = this.dataShare.currentWeightTestData.subscribe(data =>{
+      this.weights = data;
+      this.weightBackup = data;
+      this.applyDateFilter();
+    });
+
+    this.dataShareStartDateSubscription = this.dataShare.currentStartDate.subscribe(data =>{
+      this.startDate = data;
+      this.applyDateFilter();
+    });
+
+    this.dataShareEndDateSubscription = this.dataShare.currentEndDate.subscribe(data =>{
+      this.endDate = data;
+      this.applyDateFilter();
+    });
+  }
+
+  applyDateFilter(){
+    if(this.startDate && this.endDate){
+      this.weights = this.weightBackup;
+      var weightsFound = [];
+      if(this.weights){
+        this.weights.forEach(e=>{
+          if((e.time.getTime() <= this.endDate.getTime() && e.time.getTime() >= this.startDate.getTime())){
+            weightsFound.push(e);
+          }
+        });
+      }
+      this.weights = weightsFound;
+      this.createWeightChart(weightsFound);
     }
-  
-    removeSize(){
-      var a = this.testChart
-      let dialogRef = this.dialog.open(DeleteWeightDialogComponent, {data: {a}});
-          dialogRef.afterClosed().subscribe((result) => {
-            if(result){
-              console.log("delete entry ",result);
-              this.newChart = this.testChart;
-              this.newChart.data.datasets[0].data.splice(result.index,1);
-              this.newChart.data.labels.splice(result.index,1);
-              console.log("new",this.newChart);
-              this.dataShare.changeWeightTestChart(this.newChart);
-            }
-            else{
-              console.log("keep");
-            }
-          });
+  }
+
+  createWeightChart(weightsFound){
+    if(this.chart){
+      this.chart.destroy();
     }
-  
-    addSize(){
-      var a = this.testChart;
-      let dialogRef = this.dialog.open(CreateWeightDialogComponent, {data: {a}});
-          dialogRef.afterClosed().subscribe((result) =>{
-            if(result){
-              console.log("result = ",result);
-                var label = result.sizeTime.getDate() + "." + (result.sizeTime.getMonth() + 1) + "." + result.sizeTime.getFullYear();
-                this.newChart = this.testChart;
-                this.newChart.data.labels.push(label);
-                this.newChart.data.datasets[0].data.push(result.size);
-                this.dataShare.changeWeightTestChart(this.newChart);
-            }
-          });
-    }
+    var labels = [];
+    var data = [];
+    weightsFound.forEach(e =>{
+      var label = e.time.getDate() + "." + (e.time.getMonth() + 1) + "." + e.time.getFullYear();
+      labels.push(label);
+      data.push(e.weight);
+    });
+    var newChart = {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: "Gewichtsverlauf",
+            data: data,
+            borderColor: 'rgb(0, 200, 250)',
+            fill: false
+          }
+        ]
+      },
+      options: {
+        aspectRatio: 2.5
+      }
+    };
+
+    this.chart = new Chart("WeightChart",newChart);
+  }
+
+  removeSize(){
+    var a = this.chart
+    let dialogRef = this.dialog.open(DeleteWeightDialogComponent, {data: {a}});
+        dialogRef.afterClosed().subscribe((result) => {
+          if(result){
+            this.weightBackup.splice(result.index,1);
+            this.dataShare.changeWeight(this.weightBackup);
+          }
+        });
+  }
+
+  addSize(){
+    var a = this.chart;
+    let dialogRef = this.dialog.open(CreateWeightDialogComponent, {data: {a}});
+        dialogRef.afterClosed().subscribe((result) =>{
+          if(result){
+            var newEntry = {
+              weight: result.size,
+              time: result.sizeTime
+            };
+            this.weightBackup.push(newEntry);
+            this.dataShare.changeWeight(this.weightBackup);
+          }
+        });
+  }
 }
