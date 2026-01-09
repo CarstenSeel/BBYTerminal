@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { Chart } from 'chart.js';
@@ -36,7 +36,7 @@ interface Food{
   templateUrl: './food.component.html',
   styleUrls: ['./food.component.scss']
 })
-export class FoodComponent implements OnInit {
+export class FoodComponent implements OnInit, OnDestroy {
   options = [1,2,3,4,5,6,7,8,9,10,11,12];
   selected = "7";
   dailyFood = 600;
@@ -54,6 +54,12 @@ export class FoodComponent implements OnInit {
     private dataShare: DataShareService,
     public dialog: MatDialog,
   ) { }
+  ngOnDestroy(): void {
+    this.foodSubscription.unsubscribe();
+    this.dataShareEndDateSubscription.unsubscribe();
+    this.dataShareStartDateSubscription.unsubscribe();
+    this.chart.destroy();
+  }
 
   ngOnInit() {
     this.foodSubscription = this.dataShare.currentFoodTestData.subscribe(data =>{

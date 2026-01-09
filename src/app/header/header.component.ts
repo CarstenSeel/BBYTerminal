@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataShareService } from '../Service/dataShare.service';
 import { FormControl, Validators } from '@angular/forms';
@@ -75,7 +75,7 @@ interface Weight{
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   startDate: Date;
   endDate: Date;
   startDateDefault = new FormControl();
@@ -93,6 +93,10 @@ export class HeaderComponent implements OnInit {
   constructor(
     private dataShare: DataShareService,
   ) { }
+  ngOnDestroy(): void {
+    this.endDateSubscription.unsubscribe();
+    this.startDateSubscription.unsubscribe();
+  }
 
   ngOnInit() {
     this.dataShare.changeSideBarOpen(this.sidebarOpen);

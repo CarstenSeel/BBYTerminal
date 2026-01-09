@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { Chart } from 'chart.js';
@@ -43,7 +43,7 @@ interface Sleep{
   templateUrl: './sleep.component.html',
   styleUrls: ['./sleep.component.scss']
 })
-export class SleepComponent implements OnInit {
+export class SleepComponent implements OnInit, OnDestroy {
   chart: any;
   sleepChart: SleepChart;
   sleepSubscription: Subscription;
@@ -58,6 +58,12 @@ export class SleepComponent implements OnInit {
     private dataShare: DataShareService,
     public dialog: MatDialog,
   ) { }
+  ngOnDestroy(): void {
+    this.sleepSubscription.unsubscribe();
+    this.dataShareEndDateSubscription.unsubscribe();
+    this.dataShareStartDateSubscription.unsubscribe();
+    this.chart.destroy();
+  }
 
   ngOnInit() {
     this.sleepSubscription = this.dataShare.currentSleepTestData.subscribe(data =>{

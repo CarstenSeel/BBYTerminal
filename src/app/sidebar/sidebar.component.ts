@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { DataShareService } from '../Service/dataShare.service';
@@ -8,7 +8,7 @@ import { DataShareService } from '../Service/dataShare.service';
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss']
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent implements OnInit, OnDestroy {
 
   sideBarOpen: boolean;
   dataShareSubscription: Subscription;
@@ -17,6 +17,9 @@ export class SidebarComponent implements OnInit {
     private _router: Router,
     private dataShare: DataShareService,
   ) { }
+  ngOnDestroy(): void {
+    this.dataShareSubscription.unsubscribe();
+  }
 
   ngOnInit() {
     this.dataShareSubscription = this.dataShare.currentSideBarOpen.subscribe(data =>{

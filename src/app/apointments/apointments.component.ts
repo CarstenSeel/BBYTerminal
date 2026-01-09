@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { DataShareService } from '../Service/dataShare.service';
@@ -20,7 +20,7 @@ interface Appointment{
   templateUrl: './apointments.component.html',
   styleUrls: ['./apointments.component.scss']
 })
-export class ApointmentsComponent implements OnInit {
+export class ApointmentsComponent implements OnInit, OnDestroy {
   dataShareAppointSubscription: Subscription;
   dataShareStartDateSubscription: Subscription;
   dataShareEndDateSubscription: Subscription;
@@ -33,6 +33,12 @@ export class ApointmentsComponent implements OnInit {
     private dataShare: DataShareService,
     public dialog: MatDialog,
   ) { }
+  
+  ngOnDestroy(): void {
+    this.dataShareAppointSubscription.unsubscribe();
+    this.dataShareEndDateSubscription.unsubscribe();
+    this.dataShareStartDateSubscription.unsubscribe();
+  }
 
   ngOnInit() {
     this.dataShareAppointSubscription = this.dataShare.currentAppointments.subscribe(data =>{

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -17,7 +17,7 @@ interface Weight{
   templateUrl: './weight.component.html',
   styleUrls: ['./weight.component.scss']
 })
-export class WeightComponent implements OnInit {
+export class WeightComponent implements OnInit, OnDestroy {
   chart: any;
   weightSubscription: Subscription;
   weights: Weight[];
@@ -30,6 +30,12 @@ export class WeightComponent implements OnInit {
     private dataShare: DataShareService,
     public dialog: MatDialog,
   ) { }
+  ngOnDestroy(): void {
+    this.weightSubscription.unsubscribe();
+    this.dataShareEndDateSubscription.unsubscribe();
+    this.dataShareStartDateSubscription.unsubscribe();
+    this.chart.destroy();
+  }
 
   ngOnInit() {
     this.weightSubscription = this.dataShare.currentWeightTestData.subscribe(data =>{

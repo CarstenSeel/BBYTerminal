@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Chart } from 'chart.js';
 import { CreateSizeDialogComponent } from './dialogs/createDialog/createSizeDialog.component';
@@ -16,7 +16,7 @@ interface Size{
   templateUrl: './size.component.html',
   styleUrls: ['./size.component.scss']
 })
-export class SizeComponent implements OnInit {
+export class SizeComponent implements OnInit, OnDestroy {
   chart: any;
   sizeSubscription: Subscription;
   dataShareStartDateSubscription: Subscription;
@@ -29,6 +29,12 @@ export class SizeComponent implements OnInit {
     private dataShare: DataShareService,
     public dialog: MatDialog,
   ) { }
+  ngOnDestroy(): void {
+    this.sizeSubscription.unsubscribe();
+    this.dataShareStartDateSubscription.unsubscribe();
+    this.dataShareEndDateSubscription.unsubscribe();
+    this.chart.destroy();
+  }
 
   ngOnInit() {
     this.sizeSubscription = this.dataShare.currentSizeTestData.subscribe(data =>{

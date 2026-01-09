@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DataShareService } from '../Service/dataShare.service';
@@ -43,7 +43,7 @@ interface Weight{
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnDestroy {
   
   appointmentViewDate: Date  = new Date();
   weightSubscription: Subscription;
@@ -79,6 +79,19 @@ export class DashboardComponent implements OnInit {
     private _router: Router,
   ) {
     
+  }
+  ngOnDestroy(): void {
+    this.weightSubscription.unsubscribe();
+    this.sizeSubscription.unsubscribe();
+    this.sleepSubscription.unsubscribe();
+    this.foodSubscription.unsubscribe();
+    this.appointmentSubscription.unsubscribe();
+    this.diaperSubscription.unsubscribe();
+    this.dataShareStartDateSubscription.unsubscribe();
+    this.dataShareEndDateSubscription.unsubscribe();
+    this.diaperChart.destroy();
+    this.sizeChart.destroy();
+    this.weightChart.destroy();
   }
 
   ngOnInit() {

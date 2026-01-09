@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -34,7 +34,7 @@ interface Diaper{
   templateUrl: './diapers.component.html',
   styleUrls: ['./diapers.component.scss']
 })
-export class DiapersComponent implements OnInit {
+export class DiapersComponent implements OnInit, OnDestroy {
   chart: any;
   diaperSubscription: Subscription;
   dataShareStartDateSubscription: Subscription;
@@ -48,6 +48,12 @@ export class DiapersComponent implements OnInit {
     private dataShare: DataShareService,
     public dialog: MatDialog,
   ) { }
+  ngOnDestroy(): void {
+    this.diaperSubscription.unsubscribe();
+    this.dataShareStartDateSubscription.unsubscribe();
+    this.dataShareEndDateSubscription.unsubscribe();
+    this.chart.destroy();
+  }
 
   ngOnInit() {
     this.diaperSubscription = this.dataShare.currentDiaperTestData.subscribe(data =>{
