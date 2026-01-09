@@ -14,11 +14,13 @@
                         <div fxFlex="0 0 10" fxLayout="row" fxLayoutAlign="center center">
                             <h2>Arzttermine</h2>
                         </div>
+                        <!-- Appointment Date Selection -->
                         <div fxFlex="0 0 10" fxLayout="row" fxLayoutAlign="center center">
                             <mat-icon (click)="appointDateMinusOneMnth()" style="cursor: pointer;">keyboard_arrow_left</mat-icon>
                             <h3>{{appointmentViewDate | date: 'MMM.yyyy'}}</h3>
                             <mat-icon (click)="appointDatePlusOneMnth()" style="cursor: pointer;">keyboard_arrow_right</mat-icon>
                         </div>
+                        <!-- Appointment Calendar -->
                         <div fxFlex="0 0 auto" style="display: flex;" class="calendarcntr">
                             <mwl-calendar-month-view
                                 [viewDate]="appointmentViewDate"
@@ -63,11 +65,13 @@
                         <div fxFlex="0 0 10" fxLayout="row" fxLayoutAlign="center center">
                             <h2>Essen</h2>
                         </div>
+                        <!-- Food Date Selection -->
                         <div fxFlex="0 0 10" fxLayout="row" fxLayoutAlign="center center">
                             <mat-icon (click)="foodDateMinusOneMnth()" style="cursor: pointer;">keyboard_arrow_left</mat-icon>
                             <h3>{{foodViewDate | date: 'MMM.yyyy'}}</h3>
                             <mat-icon (click)="foodDatePlusOneMnth()" style="cursor: pointer;">keyboard_arrow_right</mat-icon>
                         </div>
+                        <!-- Food Calendar -->
                         <div fxFlex="0 0 auto" style="display: flex;" class="calendarcntr">
                             <mwl-calendar-month-view
                                 [viewDate]="foodViewDate"
@@ -82,11 +86,13 @@
                         <div fxFlex="0 0 10" fxLayout="row" fxLayoutAlign="center center">
                             <h2>Schlaf</h2>
                         </div>
+                        <!-- Sleep Date Selection -->
                         <div fxFlex="0 0 10" fxLayout="row" fxLayoutAlign="center center">
                             <mat-icon (click)="sleepDateMinusOneMnth()" style="cursor: pointer;">keyboard_arrow_left</mat-icon>
                             <h3>{{sleepViewDate | date: 'MMM.yyyy'}}</h3>
                             <mat-icon (click)="sleepDatePlusOneMnth()" style="cursor: pointer;">keyboard_arrow_right</mat-icon>
                         </div>
+                        <!-- Sleep Calendar -->
                         <div fxFlex="0 0 auto" style="display: flex;" class="calendarcntr">
                             <mwl-calendar-month-view
                                 [viewDate]="sleepViewDate"

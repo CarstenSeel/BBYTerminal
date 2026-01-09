@@ -1,6 +1,7 @@
 <div fxLayout="column" class="minCard">
     <h1>Termin hinzufügen</h1>
     <form [formGroup]="form" fxLayout="column" fxFlex="0 0 100">
+        <!-- title Input -->
         <p class="inputLabel">Titel:</p>
         <div fxFlex="1 0 auto">
             <mat-form-field fxFlex="1 0 auto">
@@ -10,6 +11,7 @@
                 </mat-error>
             </mat-form-field>
         </div>
+        <!-- appointmentTime Input -->
         <p class="inputLabel">Zeitpunkt:</p>
         <mat-form-field fxFlex="1 0 auto">
             <input matInput [owlDateTime]="appointmentTime" [owlDateTimeTrigger]="appointmentTime" class="customInput" formControlName="appointmentTime">
@@ -18,6 +20,7 @@
                 Bitte einen Terminzeitpunkt eingeben
             </mat-error>
         </mat-form-field>
+        <!-- doctor Input -->
         <p class="inputLabel">Arzt:</p>
         <mat-form-field fxFlex="1 0 auto">
             <input matInput class="customInput" formControlName="doctor">
@@ -25,6 +28,7 @@
                 Bitte einen Arzt angeben
             </mat-error>
         </mat-form-field>
+        <!-- reason Input -->
         <p class="inputLabel">Grund:</p>
         <mat-form-field fxFlex="1 0 auto">
             <input matInput class="customInput" formControlName="reason">
@@ -32,6 +36,7 @@
                 Bitte einen Termingrund  angeben
             </mat-error>
         </mat-form-field>
+        <!-- notes Input -->
         <p class="inputLabel">Notizen:</p>
         <mat-form-field fxFlex="1 0 auto">
             <!-- <input matInput formControlName="notes"> -->
@@ -41,7 +46,8 @@
             </mat-error>
         </mat-form-field>
     </form>
- 
+    
+    <!-- Buttons -->
     <div fxFlex="0 1 auto" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center">
         <button class="borderRadius" fxFlex="0 1 50" mat-raised-button (click)="saveChanges()">Speichern</button>
         <button class="borderRadius" fxFlex="0 1 50" mat-raised-button (click)="closeDialog()">Abbrechen</button>

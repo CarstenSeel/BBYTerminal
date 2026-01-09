@@ -33,8 +33,8 @@ export class ApointmentsComponent implements OnInit, OnDestroy {
     private dataShare: DataShareService,
     public dialog: MatDialog,
   ) { }
-  
-  ngOnDestroy(): void {
+
+  ngOnDestroy(): void { //unsubscribe all if site is closed
     this.dataShareAppointSubscription.unsubscribe();
     this.dataShareEndDateSubscription.unsubscribe();
     this.dataShareStartDateSubscription.unsubscribe();
@@ -45,7 +45,6 @@ export class ApointmentsComponent implements OnInit, OnDestroy {
       this.appointments = data;
       this.appointmentsBackup = this.appointments;
       this.applyDateFilter();
-      //possible to filter here
     });
     this.dataShareStartDateSubscription = this.dataShare.currentStartDate.subscribe(data =>{
       this.startDate = data;
@@ -58,12 +57,11 @@ export class ApointmentsComponent implements OnInit, OnDestroy {
   }
 
   editDialog(appoint){
+    //open Dialog with data from appointment that should be edited
     let dialogRef = this.dialog.open(EditDialogComponent, {data: {dataSource: appoint}});
     dialogRef.afterClosed().subscribe((result) =>{
       // check if dialog was saved
       if(result){
-        console.log("result = ",result);
-        console.log("appoint = ",appoint);
         // check if values have changed
         if(result.title != appoint.title || result.doctor != appoint.doctor || appoint.notes != result.notes || appoint.reason != result.reason || appoint.appointmentTime != result.appointmentTime){
           this.appointments[this.appointments.indexOf(appoint)] = result;
@@ -75,8 +73,10 @@ export class ApointmentsComponent implements OnInit, OnDestroy {
 
   deleteDialog(appoint){
     var name = appoint.title;
+    //open Dialog with name from appointment that should be deleted
     let dialogRef = this.dialog.open(DeleteDialogComponent, {data: {name}});
     dialogRef.afterClosed().subscribe((result) => {
+      //if true was clicked
       if(result){
         this.appointments.splice(this.appointments.indexOf(appoint),1);
       }
@@ -86,6 +86,7 @@ export class ApointmentsComponent implements OnInit, OnDestroy {
   addAppointment(){
     let dialogRef = this.dialog.open(CreateDialogComponent);
     dialogRef.afterClosed().subscribe((result) =>{
+      //if appointment was saved
       if(result){
         this.appointments.push(result);
         this.dataShare.changeAppointments(this.appointments);
@@ -98,6 +99,7 @@ export class ApointmentsComponent implements OnInit, OnDestroy {
       this.appointments = this.appointmentsBackup;
       var found = [];
       if(this.appointments){
+        //loop through every appointment to filter appointments with the given datespan
         this.appointments.forEach(e=>{
           if((e.appointmentTime.getTime() <= this.endDate.getTime() && e.appointmentTime.getTime() >= this.startDate.getTime())){
             found.push(e);
@@ -110,6 +112,7 @@ export class ApointmentsComponent implements OnInit, OnDestroy {
   }
 
   reArrangeAppointments(){
+    //sort appointments based on the appointment time
     this.appointments = this.appointments.sort((n1,n2) =>{
       if(n1.appointmentTime > n2.appointmentTime){
         return 1;

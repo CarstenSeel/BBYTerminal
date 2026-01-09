@@ -6,8 +6,10 @@
       </mat-card-header>
       <mat-divider></mat-divider>
       <mat-card-content class="contentCardContent">
+        <!-- Container for Appointment Cards -->
         <div fxLayout="row wrap" fxLayoutGap="20px" fxLayoutAlign="space-around">
           <mat-card fxFlex="1 1 30" *ngFor="let appoint of appointments; let i = index; let last = last;" fxLayout="column" class="appointmentCards">
+            <!-- AppointmentCard Header -->
             <mat-card-header>
               <div fxFlex="1 1 100">
                 <mat-card-title>
@@ -30,6 +32,7 @@
               </div>
             </mat-card-header>
             <mat-divider></mat-divider>
+            <!-- AppointmentCard Content -->
             <mat-card-content fxLayout="column">
               <div fxFlex="1 1 100" fxLayout="row">
                 <div fxFlex="0 1 50"><b>Zeitpunkt des Termins:</b></div>
@@ -55,6 +58,7 @@
       </mat-card-content>
     </mat-card>
   </div>
+  <!-- Button Area -->
   <div fxFlex="0 1 10" fxLayoutAlign="end" fxLayout="row">
     <div fxFlex="1 1 100" fxLayout="row" fxLayoutAlign="end center">
       <mat-icon (click)="addAppointment()" class="addBTN">add_circle</mat-icon>

@@ -1,11 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { DataShareService } from '../Service/dataShare.service';
 import { Chart } from 'chart.js';
 import { Subscription } from 'rxjs';
 import { CalendarEvent } from 'angular-calendar';
-
+//Iinterface Area start
 interface Appointment{
   title: String,
   appointmentTime: Date,
@@ -37,7 +36,7 @@ interface Weight{
   weight: number;
   time: Date;
 }
-
+//Interface area end
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -80,7 +79,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ) {
     
   }
-  ngOnDestroy(): void {
+  ngOnDestroy(): void { //unsubscribe all and destroy all charts when site is closed
     this.weightSubscription.unsubscribe();
     this.sizeSubscription.unsubscribe();
     this.sleepSubscription.unsubscribe();
@@ -124,6 +123,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     this.appointmentSubscription = this.dataShare.currentAppointments.subscribe(data =>{
       this.appointments = data;
+      //create appointmentevent in Calendar for each appointment
       this.appointments.forEach(e =>{
         var color = {
           primary: 'rgba(0, 200, 250, 0.3)',
@@ -141,16 +141,19 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.foodSubscription = this.dataShare.currentFoodTestData.subscribe(data =>{
       this.foods = data;
       var days = [];
+      //find every day that the baby was fed
       this.foods.forEach(e =>{
-        if(days.length == 0){
+        if(days.length == 0){ // if first entry add day to days
           days.push(e.time);
         }
         else{
+          //if feeding day does not exist in days add day to days
           if(!days.find((element) => element.getTime() == e.time.getTime())){
             days.push(e.time);
           }
         }
       });
+      //add calendar event for every day that the baby was fed
       days.forEach(d =>{
         var color = {
           primary: 'rgba(0, 200, 250, 0.3)',
@@ -169,20 +172,19 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.sleeps = data;
       var days = [];
       this.sleeps.forEach(e =>{
-        var startDay = new Date(e.startDate);
-        startDay.setHours(0);
-        startDay.setMinutes(0);
-        startDay.setSeconds(0);
-        startDay.setMilliseconds(0);
-        if(days.length == 0){
+        var startDay = new Date(e.startDate); //create copy of the day where the baby slept
+        startDay.setHours(0,0,0,0); //set the sleep time to 0 to filter for days
+        if(days.length == 0){ // if first entry add day to days
           days.push(startDay);
         }
         else{
+          //check if day the baby slept exists in days, if not add it
           if(!days.find((element) => element.getTime() == startDay.getTime())){
             days.push(startDay);
           }
         }
       });
+      //add calendar event for every day the baby has slept
       days.forEach(d =>{
         var color = {
           primary: 'rgba(0, 200, 250, 0.3)',
@@ -207,6 +209,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       var diapersFound = [];
       var weightsFound = [];
 
+      //check if diapers inside the given timespan exist
       if(this.diapers){
         this.diapers.forEach(e=>{
           if((e.time.getTime() <= this.endDate.getTime() && e.time.getTime() >= this.startDate.getTime())){
@@ -217,6 +220,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.diapers = diapersFound;
       this.createDiaperChart(diapersFound);
 
+      //check if sizes inside the given timespan exist
       if(this.sizes){
         this.sizes.forEach(e=>{
           if((e.time.getTime() <= this.endDate.getTime() && e.time.getTime() >= this.startDate.getTime())){
@@ -227,6 +231,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       this.sizes = sizesFound;
       this.createSizeChart(sizesFound);
 
+      //check if weights inside the given timespan exist
       if(this.weights){
         this.weights.forEach(e=>{
           if((e.time.getTime() <= this.endDate.getTime() && e.time.getTime() >= this.startDate.getTime())){
@@ -245,7 +250,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     var poop = 0;
     var both = 0;
 
-    found.forEach(e =>{
+    found.forEach(e =>{ //count how often the baby had which type in its diaper
       if(e.type == "Urin"){urine++;}
       if(e.type == "Stuhl"){poop++;}
       if(e.type == "Beides"){both++}
@@ -258,7 +263,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         datasets: [
           {
             label: "Windeln",
-            data: [urine,poop,both],
+            data: [urine,poop,both], //fill chart data with counted numbers from earlier
             backgroundColor: [
               '#00C8FAFF',
               '#00A0C8FF',
@@ -271,30 +276,31 @@ export class DashboardComponent implements OnInit, OnDestroy {
     };
 
     if(this.diaperChart){
-      this.diaperChart.destroy();
+      this.diaperChart.destroy(); // destroy old diaper chart
     }
-    this.diaperChart = new Chart("diaperChart",this.dataChart);
+    this.diaperChart = new Chart("diaperChart",this.dataChart); //create new diaper chart
   }
 
   createSizeChart(sizesFound){
     if(this.sizeChart){
-      this.sizeChart.destroy();
+      this.sizeChart.destroy(); //destroy old sizeChart
     }
     var labels = [];
     var data = [];
+    //change format of date to get the label
     sizesFound.forEach(e =>{
       var label = e.time.getDate() + "." + (e.time.getMonth() + 1) + "." + e.time.getFullYear();
-      labels.push(label);
-      data.push(e.size);
+      labels.push(label); //collect all labels
+      data.push(e.size); //collect all data entries
     });
     var newChart = {
       type: 'line',
       data: {
-        labels: labels,
+        labels: labels, //fill labels with labels from above
         datasets: [
           {
             label: "Wachstumsverlauf",
-            data: data,
+            data: data, //fill data with data from above
             borderColor: 'rgb(0, 200, 250)',
             fill: false
           }
@@ -305,28 +311,29 @@ export class DashboardComponent implements OnInit, OnDestroy {
       }
     };
 
-    this.sizeChart = new Chart("sizeChart",newChart);
+    this.sizeChart = new Chart("sizeChart",newChart); //create new SizeChart
   }
 
   createWeightChart(weightsFound){
     if(this.weightChart){
-      this.weightChart.destroy();
+      this.weightChart.destroy(); //Destroy old weightChart
     }
     var labels = [];
     var data = [];
+    //change format of date to get the label
     weightsFound.forEach(e =>{
       var label = e.time.getDate() + "." + (e.time.getMonth() + 1) + "." + e.time.getFullYear();
-      labels.push(label);
-      data.push(e.weight);
+      labels.push(label); //collect all labels
+      data.push(e.weight); //collect all data
     });
     var newChart = {
       type: 'line',
       data: {
-        labels: labels,
+        labels: labels, //fill labels with labels from above
         datasets: [
           {
             label: "Gewichtsverlauf",
-            data: data,
+            data: data, //fill data with data from above
             borderColor: 'rgb(0, 200, 250)',
             fill: false
           }
@@ -337,9 +344,10 @@ export class DashboardComponent implements OnInit, OnDestroy {
       }
     };
 
-    this.weightChart = new Chart("weightChart",newChart);
+    this.weightChart = new Chart("weightChart",newChart); //create new weightChart
   }
 
+  //functions to alter the calendar dates start
   appointDateMinusOneMnth(){
     this.appointmentViewDate = new Date(new Date(this.appointmentViewDate).setMonth(this.appointmentViewDate.getMonth() - 1));
   }
@@ -363,31 +371,35 @@ export class DashboardComponent implements OnInit, OnDestroy {
   foodDatePlusOneMnth(){
     this.foodViewDate = new Date(new Date(this.foodViewDate).setMonth(this.foodViewDate.getMonth() + 1));
   }
+  //functions to alter the calendar dates end
 
+  //calendar clickevent handler start
   appointEventClicked(event){
+    //alter filterdates start
     var newStartDate = new Date(event.event.start);
     var newEndDate = new Date(event.event.start);
-    newStartDate.setHours(0,0,0,0);
-    newEndDate.setHours(23,59,59,99);
+    newStartDate.setHours(0,0,0,0); //start date at 00:00
+    newEndDate.setHours(23,59,59,99); //enddate at 23:59
     this.dataShare.changeEndDate(newEndDate);
     this.dataShare.changeStartDate(newStartDate);
-    console.log("new Dates = ",this.startDate,this.endDate)
-    this._router.navigateByUrl("/apointments");
+    //alter filterdates end
+    this._router.navigateByUrl("/apointments"); //change site to appointmentPage
   }
 
   sleepEventClicked(event){
+    //alter filterdates start
     this.dataShare.changeStartDate(event.event.start);
     var newEndDate = new Date();
-    newEndDate.setTime(event.event.start.getTime() + (3600000 * 24));
+    newEndDate.setTime(event.event.start.getTime() + (3600000 * 24)); //enddate = startdate + 24 hours
     this.dataShare.changeEndDate(newEndDate);
+    //alter filterdates end
     this._router.navigateByUrl("/sleep");
   }
 
   foodEventClicked(event){
-    this.dataShare.changeEndDate(event.event.start);
-    this.dataShare.changeStartDate(event.event.start);
+    this.dataShare.changeEndDate(event.event.start); //alter filterStartDate day where food was given
+    this.dataShare.changeStartDate(event.event.start); //alter filterEndDate day where food was given
     this._router.navigateByUrl("/food");
   }
-
-  //on destroy hinzufügen
+  //calendar clickevent handler end
 }
