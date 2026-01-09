@@ -60,6 +60,11 @@ interface Sleep{
   duration: number
 }
 
+interface Size{
+  size: number;
+  time: Date;
+}
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -79,6 +84,7 @@ export class HeaderComponent implements OnInit {
   sleepTestData: Sleep[];
   endDateSubscription: Subscription;
   startDateSubscription: Subscription;
+  sizeTestData: Size[];
   constructor(
     private dataShare: DataShareService,
   ) { }
@@ -100,8 +106,6 @@ export class HeaderComponent implements OnInit {
     this.dataShare.changeEndDate(this.endDateDefault.value);
     this.appointmentsTestData = this.createDummyappointments(this.appointmentsTestData);
     this.dataShare.changeAppointments(this.appointmentsTestData);
-    this.sizeTestChart = this.createDummySizeChart(this.sizeTestChart);
-    this.dataShare.changeSizeTestChart(this.sizeTestChart);
     this.weightTestChart = this.createDummyWeightChart(this.weightTestChart);
     this.dataShare.changeWeightTestChart(this.weightTestChart);
     this.diaperTestData = this.createDummyDiaper(this.diaperTestData);
@@ -110,6 +114,8 @@ export class HeaderComponent implements OnInit {
     this.dataShare.changeFood(this.foodTestData);
     this.sleepTestData = this.createDummySleep(this.sleepTestData);
     this.dataShare.changeSleep(this.sleepTestData);
+    this.sizeTestData = this.createDummySize(this.sizeTestData);
+    this.dataShare.changeSize(this.sizeTestData);
 
     this.startDateSubscription = this.dataShare.currentStartDate.subscribe(data =>{
       this.startDateDefault.setValue(data);
@@ -207,27 +213,6 @@ export class HeaderComponent implements OnInit {
       }
     ];
     return appointmentsTestData;
-  }
-
-  createDummySizeChart(sizeTestChart){
-    sizeTestChart = {
-          type: 'line',
-          data: {
-            labels: ["1.6.25", "1.7.25", "1.8.25", "1.9.25", "1.10.25", "1.11.25"],
-            datasets: [
-              {
-                label: "Wachstumsverlauf",
-                data: [50,55,58,65,68,74],
-                borderColor: 'rgb(0, 200, 250)',
-                fill: false
-              }
-            ]
-          },
-          options: {
-            aspectRatio: 2.5
-          }
-        };
-    return sizeTestChart;
   }
 
   createDummyWeightChart(weightTestChart){
@@ -480,5 +465,34 @@ export class HeaderComponent implements OnInit {
       }
     ];
     return sleepTestData
+  }
+  createDummySize(sizeTestData){
+    sizeTestData = [
+      {
+        size: 50,
+        time: new Date("2025-06-01T00:00:00")
+      },
+      {
+        size: 55,
+        time: new Date("2025-07-01T00:00:00")
+      },
+      {
+        size: 58,
+        time: new Date("2025-08-01T00:00:00")
+      },
+      {
+        size: 65,
+        time: new Date("2025-09-01T00:00:00")
+      },
+      {
+        size: 68,
+        time: new Date("2025-10-01T00:00:00")
+      },
+      {
+        size: 74,
+        time: new Date("2025-11-01T00:00:00")
+      }
+    ];
+    return sizeTestData;
   }
 }

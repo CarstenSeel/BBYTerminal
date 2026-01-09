@@ -1,26 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { Router } from '@angular/router';
 import { Chart } from 'chart.js';
 import { CreateSizeDialogComponent } from './dialogs/createDialog/createSizeDialog.component';
 import { Subscription } from 'rxjs';
 import { DataShareService } from '../Service/dataShare.service';
 import { DeleteSizeDialogComponent } from './dialogs/deleteDialog/deleteSizeDialog.component';
 
-interface Chart{
-  type: String,
-  data:{
-    labels: String[],
-    datasets: [{
-      label: String,
-      data: number[],
-      borderColor: String,
-      fill: boolean
-    }]
-  },
-  options:{
-    aspectRatio: number
-  }
+interface Size{
+  size: number;
+  time: Date;
 }
 
 @Component({
@@ -30,55 +18,106 @@ interface Chart{
 })
 export class SizeComponent implements OnInit {
   chart: any;
-  chartSubscription: Subscription;
-  testChart: Chart;
-  testChartBackup: Chart;
-  newChart: Chart;
+  sizeSubscription: Subscription;
+  dataShareStartDateSubscription: Subscription;
+  dataShareEndDateSubscription: Subscription;
+  startDate: Date;
+  endDate: Date;
+  sizes: Size[];
+  sizeBackup: Size[];
   constructor(
     private dataShare: DataShareService,
     public dialog: MatDialog,
   ) { }
 
   ngOnInit() {
-    this.chartSubscription = this.dataShare.currentSizeTestChart.subscribe(data =>{
-      if(this.chart){
-        this.chart.destroy();
-      }
-      this.testChart = data;
-      this.testChartBackup = this.testChart;
-      this.chart = new Chart("SizeChart",this.testChart);
+    this.sizeSubscription = this.dataShare.currentSizeTestData.subscribe(data =>{
+      this.sizes = data;
+      this.sizeBackup = data;
+      this.applyDateFilter();
+    });
+
+    this.dataShareStartDateSubscription = this.dataShare.currentStartDate.subscribe(data =>{
+      this.startDate = data;
+      this.applyDateFilter();
+    });
+
+    this.dataShareEndDateSubscription = this.dataShare.currentEndDate.subscribe(data =>{
+      this.endDate = data;
+      this.applyDateFilter();
     });
   }
 
+  applyDateFilter(){
+    if(this.startDate && this.endDate){
+      this.sizes = this.sizeBackup;
+      var sizesFound = [];
+      if(this.sizes){
+        this.sizes.forEach(e=>{
+          if((e.time.getTime() <= this.endDate.getTime() && e.time.getTime() >= this.startDate.getTime())){
+            sizesFound.push(e);
+          }
+        });
+      }
+      this.sizes = sizesFound;
+      this.createSizeChart(sizesFound);
+    }
+  }
+
+  createSizeChart(sizesFound){
+    if(this.chart){
+      this.chart.destroy();
+    }
+    var labels = [];
+    var data = [];
+    sizesFound.forEach(e =>{
+      var label = e.time.getDate() + "." + (e.time.getMonth() + 1) + "." + e.time.getFullYear();
+      labels.push(label);
+      data.push(e.size);
+    });
+    var newChart = {
+      type: 'line',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: "Wachstumsverlauf",
+              data: data,
+              borderColor: 'rgb(0, 200, 250)',
+              fill: false
+            }
+          ]
+        },
+        options: {
+          aspectRatio: 2.5
+        }
+      };
+
+      this.chart = new Chart("SizeChart",newChart);
+    }
+
   removeSize(){
-    var a = this.testChart
+    var a = this.chart
     let dialogRef = this.dialog.open(DeleteSizeDialogComponent, {data: {a}});
         dialogRef.afterClosed().subscribe((result) => {
           if(result){
-            console.log("delete entry ",result);
-            this.newChart = this.testChart;
-            this.newChart.data.datasets[0].data.splice(result.index,1);
-            this.newChart.data.labels.splice(result.index,1);
-            console.log("new",this.newChart);
-            this.dataShare.changeSizeTestChart(this.newChart);
-          }
-          else{
-            console.log("keep");
+            this.sizeBackup.splice(result.index,1);
+            this.dataShare.changeSize(this.sizeBackup);
           }
         });
   }
 
   addSize(){
-    var a = this.testChart;
+    var a = this.chart;
     let dialogRef = this.dialog.open(CreateSizeDialogComponent, {data: {a}});
         dialogRef.afterClosed().subscribe((result) =>{
           if(result){
-            console.log("result = ",result);
-              var label = result.sizeTime.getDate() + "." + (result.sizeTime.getMonth() + 1) + "." + result.sizeTime.getFullYear();
-              this.newChart = this.testChart;
-              this.newChart.data.labels.push(label);
-              this.newChart.data.datasets[0].data.push(result.size);
-              this.dataShare.changeSizeTestChart(this.newChart);
+            var newEntry = {
+              size: result.size,
+              time: result.sizeTime,
+            };
+            this.sizeBackup.push(newEntry);
+            this.dataShare.changeSize(this.sizeBackup);
           }
         });
   }

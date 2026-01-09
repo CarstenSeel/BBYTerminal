@@ -23,15 +23,14 @@ export class DeleteSizeDialogComponent implements OnInit {
  
  
     ngOnInit() {
-        console.log("data = ",this.data);
         this.choiceDate = new Date();
         this.choiceDateDefault.setValue(this.choiceDate);
-        this.test();
+        this.findEntries();
     }
 
     choiceDateChange(event){
         this.choiceDate = event.value;
-        this.test();
+        this.findEntries();
     }
 
     noDelete() {
@@ -50,7 +49,7 @@ export class DeleteSizeDialogComponent implements OnInit {
         }
     }
 
-    test(){
+    findEntries(){
         var found = [];
         this.data.a.data.labels.forEach(e => {
             var newE = e.split(".",3);

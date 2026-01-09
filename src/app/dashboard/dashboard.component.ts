@@ -28,6 +28,11 @@ interface Sleep{
   duration: number
 }
 
+interface Size{
+  size: number;
+  time: Date;
+}
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -39,7 +44,9 @@ export class DashboardComponent implements OnInit {
   weightChartSubscription: Subscription;
   weightChart: any;
   dataChart: any;
-  sizeChartSubscription: Subscription;
+  sizeSubscription: Subscription;
+  sizes: Size[];
+  sizeBackup: Size[];
   sizeChart: any;
   diaperSubscription: Subscription;
   dataShareStartDateSubscription: Subscription;
@@ -76,12 +83,10 @@ export class DashboardComponent implements OnInit {
         this.weightChart = new Chart("weightChart",this.dataChart);
       });
 
-    this.sizeChartSubscription = this.dataShare.currentSizeTestChart.subscribe(data =>{
-      if(this.sizeChart){
-        this.sizeChart.destroy();
-      }
-      this.dataChart = data;
-      this.sizeChart = new Chart("sizeChart",this.dataChart);
+    this.sizeSubscription = this.dataShare.currentSizeTestData.subscribe(data =>{
+      this.sizes = data;
+      this.sizeBackup = data;
+      this.applyDateFilter();
     });
 
     this.diaperSubscription = this.dataShare.currentDiaperTestData.subscribe(data =>{
@@ -178,7 +183,10 @@ export class DashboardComponent implements OnInit {
   applyDateFilter(){
     if(this.startDate && this.endDate){
       this.diapers = this.diapersbackup;
+      this.sizes = this.sizeBackup;
+      var sizesFound = [];
       var diapersFound = [];
+
       if(this.diapers){
         this.diapers.forEach(e=>{
           if((e.time.getTime() <= this.endDate.getTime() && e.time.getTime() >= this.startDate.getTime())){
@@ -188,6 +196,16 @@ export class DashboardComponent implements OnInit {
       }
       this.diapers = diapersFound;
       this.createDiaperChart(diapersFound);
+
+      if(this.sizes){
+        this.sizes.forEach(e=>{
+          if((e.time.getTime() <= this.endDate.getTime() && e.time.getTime() >= this.startDate.getTime())){
+            sizesFound.push(e);
+          }
+        });
+      }
+      this.sizes = sizesFound;
+      this.createSizeChart(sizesFound);
     }
   }
 
@@ -227,6 +245,40 @@ export class DashboardComponent implements OnInit {
     }
     this.diaperChart = new Chart("diaperChart",this.dataChart);
   }
+
+  createSizeChart(sizesFound){
+    console.log("sizesFound", sizesFound);
+    if(this.sizeChart){
+      this.sizeChart.destroy();
+    }
+    var labels = [];
+    var data = [];
+    sizesFound.forEach(e =>{
+      var label = e.time.getDate() + "." + (e.time.getMonth() + 1) + "." + e.time.getFullYear();
+      labels.push(label);
+      data.push(e.size);
+    });
+    console.log("labels + data = ",labels,data);
+    var newChart = {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: "Wachstumsverlauf",
+            data: data,
+            borderColor: 'rgb(0, 200, 250)',
+            fill: false
+          }
+        ]
+      },
+      options: {
+        aspectRatio: 2.5
+      }
+    };
+
+    this.sizeChart = new Chart("sizeChart",newChart);
+    }
 
   appointDateMinusOneMnth(){
     this.appointmentViewDate = new Date(new Date(this.appointmentViewDate).setMonth(this.appointmentViewDate.getMonth() - 1));
