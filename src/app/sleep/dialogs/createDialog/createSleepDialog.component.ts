@@ -1,7 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-createSleepDialog',
@@ -24,7 +23,7 @@ export class CreateSleepDialogComponent implements OnInit {
  
     saveChanges() {
         if (this.form.valid) {
-          console.log(this.form.value.endtime, this.form.value.starttime);
+          //calculate duration of sleep
           var duration = ((this.form.value.endtime.getTime() - this.form.value.starttime.getTime()) / 3600000);
           let result = {
               startDate: this.form.value.starttime,

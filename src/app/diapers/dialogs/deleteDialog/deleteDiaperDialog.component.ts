@@ -1,7 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-deleteDiaperDialog',
@@ -13,7 +12,6 @@ export class DeleteDiaperDialogComponent implements OnInit {
     choiceDate: Date;
     options: any;
     form = new FormGroup({
-            // size : new FormControl('', [Validators.required]),
             size : new FormControl('', [Validators.required])
         });
     constructor (
@@ -23,7 +21,6 @@ export class DeleteDiaperDialogComponent implements OnInit {
  
  
     ngOnInit() {
-        console.log("data = ",this.data);
         this.choiceDate = new Date();
         this.choiceDateDefault.setValue(this.choiceDate);
         this.getOptions();
@@ -40,7 +37,6 @@ export class DeleteDiaperDialogComponent implements OnInit {
 
     delete(){
         if (this.form.valid) {
-            console.log("value = ",this.form.value.size);
             var foundindex = this.data.diapersbackup.indexOf(this.form.value.size);
             let result = {
                 index: foundindex
@@ -53,6 +49,7 @@ export class DeleteDiaperDialogComponent implements OnInit {
 
     getOptions(){
         var found = [];
+        //Find all diaper entries on given Date
         this.data.diapersbackup.forEach(e => {
             if((e.time.getDate() == this.choiceDate.getDate()) && (e.time.getMonth() == this.choiceDate.getMonth()) && (e.time.getFullYear() == this.choiceDate.getFullYear())){
                 var index = this.data.diapersbackup.indexOf(e);

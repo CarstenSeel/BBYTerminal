@@ -1,7 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-deleteSleepDialog',
@@ -22,7 +21,6 @@ export class DeleteSleepDialogComponent implements OnInit {
  
  
     ngOnInit() {
-        console.log("data = ",this.data);
         this.choiceDate = new Date();
         this.choiceDateDefault.setValue(this.choiceDate);
         this.getOptions();
@@ -51,6 +49,7 @@ export class DeleteSleepDialogComponent implements OnInit {
 
     getOptions(){
         var found = [];
+        //find all entries on given date
         this.data.sleepbackup.forEach(e => {
             if((e.startDate.getDate() == this.choiceDate.getDate()) && (e.startDate.getMonth() == this.choiceDate.getMonth()) && (e.startDate.getFullYear() == this.choiceDate.getFullYear())){
                 var index = this.data.sleepbackup.indexOf(e);

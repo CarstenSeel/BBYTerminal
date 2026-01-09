@@ -2,19 +2,24 @@
   <div class="header">
     <mat-card class="card">
       <mat-card-content class="cardContent">
+        <!-- toggle sidebar button -->
         <div class="sidebarToggleBtn">
           <mat-icon (click)="toggleSidebar()" class="sidebarBtnToggle">menu</mat-icon>
         </div>
-        <div class="HeaderText">
+        <!-- Header Text -->
+        <div class="headerText">
           <h2>BBYTerminal</h2>
         </div>
-        <div class="HeaderDatepicker">
+        <!-- Datepicker area -->
+        <div class="headerDatepicker">
+          <!-- from datepicker -->
           <mat-form-field class="startDatePicker" appearance="none">
             <mat-label>Filter von:</mat-label>
             <input matInput [disabled]="true" [matDatepicker]="startDateDefaultPicker" (dateChange)="startDateChange($event)" [formControl]="startDateDefault" style="width: 80px;">
             <mat-datepicker-toggle matSuffix [for]="startDateDefaultPicker" [disabled]="false"></mat-datepicker-toggle>
             <mat-datepicker #startDateDefaultPicker [disabled]="false"></mat-datepicker>
           </mat-form-field>
+          <!-- to datepicker -->
           <mat-form-field class="endDatePicker" appearance="none">
             <mat-label>Filter bis:</mat-label>
             <input matInput [disabled]="true" [matDatepicker]="endDateDefaultPicker" (dateChange)="endDateChange($event)" [formControl]="endDateDefault">

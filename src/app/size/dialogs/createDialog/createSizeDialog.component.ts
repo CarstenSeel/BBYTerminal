@@ -1,7 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-createSizeDialog',
@@ -25,8 +24,8 @@ export class CreateSizeDialogComponent implements OnInit {
     }
 
     dateChange(event){
-      console.log("form = ",this.form);
       this.warning = false;
+      //edit labels to dates
       this.data.a.data.labels.forEach(e => {
             var newE = e.split(".",3);
             if(newE[2].length == 2){
@@ -40,15 +39,16 @@ export class CreateSizeDialogComponent implements OnInit {
             }
             var dateString = newE[2]+"-"+newE[1]+"-"+newE[0]+" 00:00";
             var existingDates = new Date(dateString);
+            //check if new date is an allready existing date
             if((existingDates.getDate() == event.value.getDate()) && (existingDates.getMonth() == event.value.getMonth()) && (existingDates.getFullYear() == event.value.getFullYear())){
-                this.warning = true;
+                this.warning = true; //set warning true if new date allready exists
             }
         });
     }
  
     saveChanges() {
         if (this.form.valid) {
-          if(!this.warning){
+          if(!this.warning){ //only allow results if warning is false
             let result = {
                 size:  parseInt(this.form.value.size),
                 sizeTime: this.form.value.sizeTime

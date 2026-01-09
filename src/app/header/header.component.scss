@@ -1,10 +1,3 @@
-.DashboardContainer{
-    display: flex;
-    flex-basis: 100%;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
 .header{
     display: flex;
     flex-basis: 100%;
@@ -38,7 +31,7 @@
     cursor: pointer;
 }
 
-.HeaderText{
+.headerText{
     display: flex;
     flex-basis: 50%;
     justify-content: center;
@@ -47,7 +40,7 @@
     margin-right: 12px;
 }
 
-.HeaderDatepicker{
+.headerDatepicker{
     display: flex;
     flex-basis: 25%;
     justify-content: end;
@@ -78,19 +71,4 @@
 
 ::ng-deep .mat-form-field-infix {
     width: 80px !important;
-}
-
-.mainPage{
-    min-height: 100%;
-}
-
-.sidebarBtn{
-    padding: 12px 12px 0px 12px;
-    cursor: pointer;
-}
-
-.Sidebar{
-    background: rgba(0, 200, 250, 0.3);
-    border: 1px solid #000000;
-    min-height: 100%;
 }

@@ -1,12 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { Router } from '@angular/router';
 import { Chart } from 'chart.js';
 import { Subscription } from 'rxjs';
 import { DataShareService } from '../Service/dataShare.service';
 import { CreateSleepDialogComponent } from './dialogs/createDialog/createSleepDialog.component';
 import { DeleteSleepDialogComponent } from './dialogs/deleteDialog/deleteSleepDialog.component';
-
+//interface Area Start
 interface SleepChart{
   type: String,
   data: {
@@ -37,7 +36,7 @@ interface Sleep{
   endDate: Date,
   duration: number
 }
-
+//interface Area End
 @Component({
   selector: 'app-sleep',
   templateUrl: './sleep.component.html',
@@ -58,7 +57,7 @@ export class SleepComponent implements OnInit, OnDestroy {
     private dataShare: DataShareService,
     public dialog: MatDialog,
   ) { }
-  ngOnDestroy(): void {
+  ngOnDestroy(): void { //unsubscribe all and delete Chart if Page is closed
     this.sleepSubscription.unsubscribe();
     this.dataShareEndDateSubscription.unsubscribe();
     this.dataShareStartDateSubscription.unsubscribe();
@@ -84,6 +83,7 @@ export class SleepComponent implements OnInit, OnDestroy {
     if(this.startDate && this.endDate){
       this.sleep = this.sleepbackup;
       var found = [];
+      //find each sleep entry in given Datespan
       if(this.sleep){
         this.sleep.forEach(e=>{
           if((e.startDate.getTime() <= this.endDate.getTime() && e.startDate.getTime() >= this.startDate.getTime())){
@@ -102,8 +102,8 @@ export class SleepComponent implements OnInit, OnDestroy {
     var backgroundColor = [];
     var borderColor = [];
     var i = 1;
-    console.log("found = ",found);
     found.forEach(e =>{
+      //create labels
       var newLabel = "Schläfchen " + i;
       label.push(newLabel);
       data.push(e.duration);
@@ -136,9 +136,9 @@ export class SleepComponent implements OnInit, OnDestroy {
       }
     };
     if(this.chart){
-          this.chart.destroy();
+          this.chart.destroy(); //delete old sleep chart
     }
-    this.chart = new Chart("SleepChart",this.sleepChart);
+    this.chart = new Chart("SleepChart",this.sleepChart); //create new sleep chart
   }
 
   addSleep(){

@@ -17,7 +17,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
     private _router: Router,
     private dataShare: DataShareService,
   ) { }
-  ngOnDestroy(): void {
+  ngOnDestroy(): void { //unsubscribe all on destroy
     this.dataShareSubscription.unsubscribe();
   }
 
@@ -27,6 +27,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
     });
   }
 
+  //navigation methods start
   moveToDashboard(){
     this._router.navigateByUrl("/dashboard");
   }
@@ -54,5 +55,6 @@ export class SidebarComponent implements OnInit, OnDestroy {
   moveToSleep(){
     this._router.navigateByUrl("/sleep");
   }
+  //navigation methods end
 
 }

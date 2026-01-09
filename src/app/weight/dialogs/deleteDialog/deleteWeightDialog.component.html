@@ -2,6 +2,7 @@
     <div fxFlex="1 1 25">
         <h1>Gewicht Löschen</h1>
     </div>
+    <!-- Entry to Delete Date Picker -->
     <div fxFlex="1 1 25">
         <mat-form-field class="choiceDatePicker" appearance="none">
             <input matInput [disabled]="true" [matDatepicker]="choiceDate" (dateChange)="choiceDateChange($event)" [formControl]="choiceDateDefault">
@@ -9,6 +10,7 @@
             <mat-datepicker #choiceDate [disabled]="false" [startAt]="choiceDate"></mat-datepicker>
           </mat-form-field>
     </div>
+    <!-- Entry to Delete Select -->
     <div fxFlex="1 1 25">
         <form [formGroup]="form">
                 <mat-form-field class="customSelect" appearance="none">
@@ -19,10 +21,12 @@
             </mat-form-field>
         </form>
     </div>
+
+    <!-- Button Area -->
     <div fxFlex="1 1 25" fxLayoutAlign="end" style="margin-top:12px">
         <div fxFlex="1 1 100" fxLayout="row" fxLayoutAlign="space-between end">
-            <button fxFlex="0 0 45" class="borderRadius" mat-raised-button (click)="delete()" mat-button fxLayoutAlign="center center">Ja</button>
-            <button fxFlex="0 0 45" class="borderRadius" mat-raised-button (click)="noDelete()" mat-button fxLayoutAlign="center center">Nein</button>
+            <button fxFlex="0 0 45" mat-raised-button (click)="delete()" mat-button fxLayoutAlign="center center">Ja</button>
+            <button fxFlex="0 0 45" mat-raised-button (click)="noDelete()" mat-button fxLayoutAlign="center center">Nein</button>
         </div>
     </div>
 </div>

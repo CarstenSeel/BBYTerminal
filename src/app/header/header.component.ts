@@ -1,9 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { DataShareService } from '../Service/dataShare.service';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs';
-
+//interface area start
 interface Appointment{
   title: String,
   appointmentTime: Date,
@@ -69,7 +68,7 @@ interface Weight{
   weight: number;
   time: Date;
 }
-
+//interface area end
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -93,7 +92,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(
     private dataShare: DataShareService,
   ) { }
-  ngOnDestroy(): void {
+  ngOnDestroy(): void { //unsubscribe all when header is closed
     this.endDateSubscription.unsubscribe();
     this.startDateSubscription.unsubscribe();
   }
@@ -102,7 +101,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.dataShare.changeSideBarOpen(this.sidebarOpen);
     this.endDate = new Date();
     this.startDate = new Date();
-    if(this.startDate.getMonth() > 0){
+    if(this.startDate.getMonth() > 0){ //if startdatemonth = jan set month to dec and reduce year by one otherwise reduce startmonth by 1
       this.startDate.setMonth(this.startDate.getMonth() - 1);
     }
     else{
@@ -113,6 +112,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.endDateDefault.setValue(this.endDate);
     this.dataShare.changeStartDate(this.startDateDefault.value);
     this.dataShare.changeEndDate(this.endDateDefault.value);
+
+    //set mockupData start
     this.appointmentsTestData = this.createDummyappointments(this.appointmentsTestData);
     this.dataShare.changeAppointments(this.appointmentsTestData);
     this.weightTestData = this.createDummyWeight(this.weightTestData);
@@ -125,6 +126,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.dataShare.changeSleep(this.sleepTestData);
     this.sizeTestData = this.createDummySize(this.sizeTestData);
     this.dataShare.changeSize(this.sizeTestData);
+    //set mockupData end
 
     this.startDateSubscription = this.dataShare.currentStartDate.subscribe(data =>{
       this.startDateDefault.setValue(data);
@@ -136,7 +138,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   toggleSidebar(){
-    this.sidebarOpen = this.sidebarOpen ? false : true;
+    this.sidebarOpen = this.sidebarOpen ? false : true; //Switch state of sidebar
     this.dataShare.changeSideBarOpen(this.sidebarOpen);
   }
 
@@ -229,27 +231,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
       }
     ];
     return appointmentsTestData;
-  }
-
-  createDummyWeightChart(weightTestChart){
-    weightTestChart = {
-          type: 'line',
-          data: {
-            labels: ["1.6.25", "1.7.25", "1.8.25", "1.9.25", "1.10.25", "1.11.25"],
-            datasets: [
-              {
-                label: "Gewichtverlauf",
-                data: [5,6.5,7,6.8,7.7,9.6],
-                borderColor: '#00c8faff',
-                fill: false
-              }
-            ]
-          },
-          options: {
-            aspectRatio: 2.5
-          }
-        };
-    return weightTestChart;
   }
 
   createDummyDiaper(diaperTestData){

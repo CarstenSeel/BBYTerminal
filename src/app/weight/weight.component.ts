@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { DataShareService } from '../Service/dataShare.service';
 import { Chart } from 'chart.js';
@@ -30,7 +29,7 @@ export class WeightComponent implements OnInit, OnDestroy {
     private dataShare: DataShareService,
     public dialog: MatDialog,
   ) { }
-  ngOnDestroy(): void {
+  ngOnDestroy(): void { //unsubscribe all and delete Chart if Page is closed
     this.weightSubscription.unsubscribe();
     this.dataShareEndDateSubscription.unsubscribe();
     this.dataShareStartDateSubscription.unsubscribe();
@@ -60,6 +59,7 @@ export class WeightComponent implements OnInit, OnDestroy {
       this.weights = this.weightBackup;
       var weightsFound = [];
       if(this.weights){
+        //find all entries in given Datespan
         this.weights.forEach(e=>{
           if((e.time.getTime() <= this.endDate.getTime() && e.time.getTime() >= this.startDate.getTime())){
             weightsFound.push(e);
@@ -73,11 +73,12 @@ export class WeightComponent implements OnInit, OnDestroy {
 
   createWeightChart(weightsFound){
     if(this.chart){
-      this.chart.destroy();
+      this.chart.destroy(); //delete old chart
     }
     var labels = [];
     var data = [];
     weightsFound.forEach(e =>{
+      //alter dates to labels
       var label = e.time.getDate() + "." + (e.time.getMonth() + 1) + "." + e.time.getFullYear();
       labels.push(label);
       data.push(e.weight);
@@ -100,7 +101,7 @@ export class WeightComponent implements OnInit, OnDestroy {
       }
     };
 
-    this.chart = new Chart("WeightChart",newChart);
+    this.chart = new Chart("WeightChart",newChart); //create new chart
   }
 
   removeSize(){

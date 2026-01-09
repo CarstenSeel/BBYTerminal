@@ -1,7 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-deleteFoodDialog',
@@ -51,6 +50,7 @@ export class DeleteFoodDialogComponent implements OnInit {
 
     getOptions(){
         var found = [];
+        //get every food on the given Date
         this.data.foodBackup.forEach(e => {
             if((e.time.getDate() == this.choiceDate.getDate()) && (e.time.getMonth() == this.choiceDate.getMonth()) && (e.time.getFullYear() == this.choiceDate.getFullYear())){
                 var index = this.data.foodBackup.indexOf(e);

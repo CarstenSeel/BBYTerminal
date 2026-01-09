@@ -29,7 +29,7 @@ export class SizeComponent implements OnInit, OnDestroy {
     private dataShare: DataShareService,
     public dialog: MatDialog,
   ) { }
-  ngOnDestroy(): void {
+  ngOnDestroy(): void { //unsubscribe all and delete all charts if page gets closed
     this.sizeSubscription.unsubscribe();
     this.dataShareStartDateSubscription.unsubscribe();
     this.dataShareEndDateSubscription.unsubscribe();
@@ -58,6 +58,7 @@ export class SizeComponent implements OnInit, OnDestroy {
     if(this.startDate && this.endDate){
       this.sizes = this.sizeBackup;
       var sizesFound = [];
+      //find all entries within the date range
       if(this.sizes){
         this.sizes.forEach(e=>{
           if((e.time.getTime() <= this.endDate.getTime() && e.time.getTime() >= this.startDate.getTime())){
@@ -76,6 +77,7 @@ export class SizeComponent implements OnInit, OnDestroy {
     }
     var labels = [];
     var data = [];
+    //alter dates to labels
     sizesFound.forEach(e =>{
       var label = e.time.getDate() + "." + (e.time.getMonth() + 1) + "." + e.time.getFullYear();
       labels.push(label);
@@ -107,6 +109,7 @@ export class SizeComponent implements OnInit, OnDestroy {
     let dialogRef = this.dialog.open(DeleteSizeDialogComponent, {data: {a}});
         dialogRef.afterClosed().subscribe((result) => {
           if(result){
+            //remove entry with index from result
             this.sizeBackup.splice(result.index,1);
             this.dataShare.changeSize(this.sizeBackup);
           }
@@ -118,10 +121,12 @@ export class SizeComponent implements OnInit, OnDestroy {
     let dialogRef = this.dialog.open(CreateSizeDialogComponent, {data: {a}});
         dialogRef.afterClosed().subscribe((result) =>{
           if(result){
+            //get new Entry from result
             var newEntry = {
               size: result.size,
               time: result.sizeTime,
             };
+            //add new Entry to list of sizes
             this.sizeBackup.push(newEntry);
             this.dataShare.changeSize(this.sizeBackup);
           }

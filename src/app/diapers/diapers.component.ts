@@ -1,12 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { DataShareService } from '../Service/dataShare.service';
 import { Chart } from 'chart.js';
 import { DeleteDiaperDialogComponent } from './dialogs/deleteDialog/deleteDiaperDialog.component';
 import { CreateDiaperDialogComponent } from './dialogs/createDialog/createDiaperDialog.component';
-
+//interface area start
 interface PieChart{
   type: String,
   data:{
@@ -28,7 +27,7 @@ interface Diaper{
   type: string,
   time: Date
 }
-
+//interface area end
 @Component({
   selector: 'app-diapers',
   templateUrl: './diapers.component.html',
@@ -48,7 +47,7 @@ export class DiapersComponent implements OnInit, OnDestroy {
     private dataShare: DataShareService,
     public dialog: MatDialog,
   ) { }
-  ngOnDestroy(): void {
+  ngOnDestroy(): void { //unsubscribe all and destroy chart if site is closed
     this.diaperSubscription.unsubscribe();
     this.dataShareStartDateSubscription.unsubscribe();
     this.dataShareEndDateSubscription.unsubscribe();
@@ -75,6 +74,7 @@ export class DiapersComponent implements OnInit, OnDestroy {
       this.diapers = this.diapersbackup;
       var found = [];
       if(this.diapers){
+        //find all diaper entries in given datespan
         this.diapers.forEach(e=>{
           if((e.time.getTime() <= this.endDate.getTime() && e.time.getTime() >= this.startDate.getTime())){
             found.push(e);
@@ -92,7 +92,7 @@ export class DiapersComponent implements OnInit, OnDestroy {
     var poop = 0;
     var both = 0;
 
-    found.forEach(e =>{
+    found.forEach(e =>{ //count how many of each type
       if(e.type == "Urin"){urine++;}
       if(e.type == "Stuhl"){poop++;}
       if(e.type == "Beides"){both++}
@@ -105,7 +105,7 @@ export class DiapersComponent implements OnInit, OnDestroy {
         datasets: [
           {
             label: "Windeln",
-            data: [urine,poop,both],
+            data: [urine,poop,both], //fill with data from counting
             backgroundColor: [
               '#00C8FAFF',
               '#00A0C8FF',
@@ -118,16 +118,18 @@ export class DiapersComponent implements OnInit, OnDestroy {
     };
 
     if(this.chart){
-      this.chart.destroy();
+      this.chart.destroy(); //delete old diaper chart
     }
-    this.chart = new Chart("DiaperChart",this.diaperChart);
+    this.chart = new Chart("DiaperChart",this.diaperChart); //create new diaper chart
   }
 
   removeDiaper(){
     var diapersbackup = this.diapersbackup;
+    //open dialog with all diapers as data
     let dialogRef = this.dialog.open(DeleteDiaperDialogComponent, {data: {diapersbackup}});
     dialogRef.afterClosed().subscribe((result) => {
       if(result){
+        //delete diaper with index from result
         this.diapersbackup.splice(result.index,1);
         this.dataShare.changeDiapers(this.diapersbackup);
       }

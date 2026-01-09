@@ -1,5 +1,4 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { DataShareService } from '../Service/dataShare.service';
 import { DeleteDialogComponent } from './dialogs/deleteDialog/deleteDialog.component';

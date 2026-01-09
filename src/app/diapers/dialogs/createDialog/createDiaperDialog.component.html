@@ -1,6 +1,7 @@
 <div fxLayout="column" class="minCard">
     <h1>Windel hinzufügen</h1>
     <form [formGroup]="form" fxLayout="column" fxFlex="0 0 100">
+        <!-- type Select -->
         <p class="inputLabel">Windelinhalt:</p>
         <div fxFlex="1 0 auto">
             <mat-radio-group fxFlex="1 0 auto" formControlName="type">
@@ -9,6 +10,7 @@
                 <mat-radio-button value="Beides" class="customRadio">Beides</mat-radio-button>
             </mat-radio-group>
         </div>
+        <!-- time Input -->
         <p class="inputLabelTime">Zeitpunkt:</p>
         <mat-form-field class="startDatePicker" fxFlex="1 0 auto">
             <input matInput [owlDateTime]="time" [owlDateTimeTrigger]="time" class="customInput" formControlName="time">
@@ -18,7 +20,7 @@
             </mat-error>
         </mat-form-field>
     </form>
- 
+    <!-- Button Area -->
     <div fxFlex="0 1 auto" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="space-between center">
         <button class="borderRadius" fxFlex="0 1 50" mat-raised-button (click)="saveChanges()">Speichern</button>
         <button class="borderRadius" fxFlex="0 1 50" mat-raised-button (click)="closeDialog()">Abbrechen</button>

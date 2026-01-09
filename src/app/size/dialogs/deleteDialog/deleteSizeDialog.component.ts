@@ -1,7 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-deleteSizeDialog',
@@ -13,7 +12,6 @@ export class DeleteSizeDialogComponent implements OnInit {
     choiceDate: Date;
     options: any;
     form = new FormGroup({
-            // size : new FormControl('', [Validators.required]),
             size : new FormControl('', [Validators.required])
         });
     constructor (
@@ -39,6 +37,7 @@ export class DeleteSizeDialogComponent implements OnInit {
 
     delete(){
         if (this.form.valid) {
+            //find index of element that should be deleted
             var foundindex = this.data.a.data.datasets[0].data.indexOf(this.form.value.size);
             let result = {
                 index: foundindex
@@ -51,6 +50,7 @@ export class DeleteSizeDialogComponent implements OnInit {
 
     findEntries(){
         var found = [];
+        //alter labels to dates
         this.data.a.data.labels.forEach(e => {
             var newE = e.split(".",3);
             if(newE[2].length == 2){
@@ -64,6 +64,7 @@ export class DeleteSizeDialogComponent implements OnInit {
             }
             var stringToDelete = newE[2]+"-"+newE[1]+"-"+newE[0]+" 00:00";
             var dateToDelete = new Date(stringToDelete);
+            //find entries at given date
             if((dateToDelete.getDate() == this.choiceDate.getDate()) && (dateToDelete.getMonth() == this.choiceDate.getMonth()) && (dateToDelete.getFullYear() == this.choiceDate.getFullYear())){
                 var index = this.data.a.data.labels.indexOf(e);
                 found.push(this.data.a.data.datasets[0].data[index]);

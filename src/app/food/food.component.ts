@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import { Router } from '@angular/router';
 import { Chart } from 'chart.js';
 import { Subscription } from 'rxjs';
 import { DataShareService } from '../Service/dataShare.service';
@@ -54,7 +53,7 @@ export class FoodComponent implements OnInit, OnDestroy {
     private dataShare: DataShareService,
     public dialog: MatDialog,
   ) { }
-  ngOnDestroy(): void {
+  ngOnDestroy(): void { //unsubscribe all and destroy all charts when site is closed
     this.foodSubscription.unsubscribe();
     this.dataShareEndDateSubscription.unsubscribe();
     this.dataShareStartDateSubscription.unsubscribe();
@@ -80,6 +79,7 @@ export class FoodComponent implements OnInit, OnDestroy {
     if(this.startDate && this.endDate){
       this.food = this.foodBackup;
       var found = [];
+      //find each food within the date range
       if(this.food){
         this.food.forEach(e=>{
           if((e.time.getTime() <= this.endDate.getTime() && e.time.getTime() >= this.startDate.getTime())){
@@ -98,24 +98,26 @@ export class FoodComponent implements OnInit, OnDestroy {
 
     found.forEach(e =>{
       if(e.type == "Milch"){
-        foodAmount = foodAmount + e.amount;
+        foodAmount = foodAmount + e.amount; //add up all drinked milk
       }
       if(e.type == "Beikost"){
-        hardFoodAmount = hardFoodAmount + e.amount;
+        hardFoodAmount = hardFoodAmount + e.amount; //add up all hard Food
       }
     });
 
+    //calc how many days are in the date range
     var diff = Math.abs(this.startDate.getTime() - this.endDate.getTime());
     var diffDays = Math.ceil(diff / (1000 * 3600 * 24));
     var diffFoodAmount = 0;
     var diffHardFoodAmount = 0;
-    if(diffDays <= 0){
+    if(diffDays <= 0){ //if 0 => one day
       diffDays = 1;
     }
-    diffFoodAmount = (this.dailyFood * diffDays) - foodAmount;
-    diffHardFoodAmount = (this.dailyHardFood * diffDays) - hardFoodAmount;
+    diffFoodAmount = (this.dailyFood * diffDays) - foodAmount; //calc how much milk is missing in the date range
+    diffHardFoodAmount = (this.dailyHardFood * diffDays) - hardFoodAmount;//calc how much hard food is missing in the date range
 
-    if(diffFoodAmount < 0){diffFoodAmount = 0;}
+    //if negativ amounts => set to zero
+    if(diffFoodAmount < 0){diffFoodAmount = 0;} 
     if(diffHardFoodAmount < 0 ){diffHardFoodAmount = 0;}
 
 
@@ -140,12 +142,12 @@ export class FoodComponent implements OnInit, OnDestroy {
     };
 
     if(this.chart){
-      this.chart.destroy();
+      this.chart.destroy(); //delete old food chart
     }
-    this.chart = new Chart("FoodChart",this.foodChart);
+    this.chart = new Chart("FoodChart",this.foodChart); //create new food chart
   }
   
-  selectedChange(){
+  selectedChange(){ //set the daily amount of hardfood and milk depending of the age of the baby
     switch( this.selected ){
       case "1":
         this.dailyFood = 600;
@@ -213,7 +215,7 @@ export class FoodComponent implements OnInit, OnDestroy {
     var foodBackup = this.foodBackup;
     let dialogRef = this.dialog.open(DeleteFoodDialogComponent, {data: {foodBackup}});
     dialogRef.afterClosed().subscribe((result) => {
-      if(result){
+      if(result){ //delete food with index from result
         this.foodBackup.splice(result.index,1);
         this.dataShare.changeFood(this.foodBackup);
       }

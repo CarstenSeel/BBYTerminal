@@ -7,10 +7,13 @@
       </mat-card-header>
       <mat-divider></mat-divider>
       <mat-card-content class="contentCardContent" fxLayout="row">
+        <!-- Food Chart -->
         <div fxFlex="0 0 90" fxLayout="column">
             <canvas id="FoodChart" class="foodChart">{{Chart}}</canvas>
         </div>
+        <!-- Information Sidebar (right side) -->
         <div fxFlex="0 0 10" fxLayout="column">
+          <!-- Child Age Selection -->
             <p class="lbl">Alter des Kindes in Monaten:</p>
             <mat-form-field>
                 <mat-select [(value)]="selected" (selectionChange)="selectedChange()">
@@ -28,8 +31,10 @@
                     <mat-option value="12">12</mat-option>
                 </mat-select>
             </mat-form-field>
+            <!-- Daily Milk Amount -->
             <p class="lbl">Empf. Tagesmenge:</p>
             <p fxLayoutAlign="center center">{{dailyFood}}ml</p>
+            <!-- Daily Food Amount -->
             <p class="lbl">Empf. Beikostmenge:</p>
             <p fxLayoutAlign="center center">{{dailyHardFood}}g</p>
         </div>
