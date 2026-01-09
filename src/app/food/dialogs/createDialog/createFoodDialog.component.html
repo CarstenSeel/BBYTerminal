@@ -8,7 +8,9 @@
                 <mat-radio-button value="Beikost" class="customRadio">Beikost</mat-radio-button>
             </mat-radio-group>
         </div>
-        <p class="inputLabel">Menge:</p>
+        <p class="inputLabel" *ngIf="form.value.type=='Milch'">Menge in ml:</p>
+        <p class="inputLabel" *ngIf="form.value.type=='Beikost'">Menge in g:</p>
+        <p class="inputLabel" *ngIf="(form.value.type != 'Beikost' && form.value.type != 'Milch')" style="color: red;">Bitte Essensart auswählen</p>
         <mat-form-field fxFlex="1 0 auto">
             <input matInput class="customInput" formControlName="amount">
             <mat-error *ngIf="form.controls.amount.hasError('required')">

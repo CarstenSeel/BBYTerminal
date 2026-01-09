@@ -365,8 +365,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   appointEventClicked(event){
-    this.dataShare.changeEndDate(event.event.start);
-    this.dataShare.changeStartDate(event.event.start);
+    var newStartDate = new Date(event.event.start);
+    var newEndDate = new Date(event.event.start);
+    newStartDate.setHours(0,0,0,0);
+    newEndDate.setHours(23,59,59,99);
+    this.dataShare.changeEndDate(newEndDate);
+    this.dataShare.changeStartDate(newStartDate);
+    console.log("new Dates = ",this.startDate,this.endDate)
     this._router.navigateByUrl("/apointments");
   }
 

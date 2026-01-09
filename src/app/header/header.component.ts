@@ -219,6 +219,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
         doctor: "Dr. Schmidt",
         reason: "Hörtest",
         notes: "Kontrolle des Hörvermögens."
+      },
+      {
+        title: "Termin 11",
+        appointmentTime: new Date("2026-01-27T14:30:00"),
+        doctor: "Dr. Maier",
+        reason: "Kontrolluntersuchung",
+        notes: "Wachstum und Entwicklung beobachten."
       }
     ];
     return appointmentsTestData;

@@ -10,13 +10,13 @@
         </div>
         <div class="HeaderDatepicker">
           <mat-form-field class="startDatePicker" appearance="none">
-            <mat-label>Startdatum</mat-label>
-            <input matInput [disabled]="true" [matDatepicker]="startDateDefaultPicker" (dateChange)="startDateChange($event)" [formControl]="startDateDefault">
+            <mat-label>Filter von:</mat-label>
+            <input matInput [disabled]="true" [matDatepicker]="startDateDefaultPicker" (dateChange)="startDateChange($event)" [formControl]="startDateDefault" style="width: 80px;">
             <mat-datepicker-toggle matSuffix [for]="startDateDefaultPicker" [disabled]="false"></mat-datepicker-toggle>
             <mat-datepicker #startDateDefaultPicker [disabled]="false"></mat-datepicker>
           </mat-form-field>
-          <mat-form-field class="startDatePicker" appearance="none">
-            <mat-label>Enddatum</mat-label>
+          <mat-form-field class="endDatePicker" appearance="none">
+            <mat-label>Filter bis:</mat-label>
             <input matInput [disabled]="true" [matDatepicker]="endDateDefaultPicker" (dateChange)="endDateChange($event)" [formControl]="endDateDefault">
             <mat-datepicker-toggle matSuffix [for]="endDateDefaultPicker" [disabled]="false"></mat-datepicker-toggle>
             <mat-datepicker #endDateDefaultPicker [disabled]="false"></mat-datepicker>
