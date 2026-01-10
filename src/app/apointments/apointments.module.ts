@@ -48,9 +48,9 @@ import { EditDialogComponent } from "./dialogs/editDialog/editDialog.component";
     ],
     exports: [ApointmentsComponent],
     entryComponents: [
-    DeleteDialogComponent,
-    CreateDialogComponent,
-    EditDialogComponent,
+    // DeleteDialogComponent,
+    // CreateDialogComponent,
+    // EditDialogComponent,
     // CreateSizeDialogComponent,
     // DeleteSizeDialogComponent,
     // CreateWeightDialogComponent,
