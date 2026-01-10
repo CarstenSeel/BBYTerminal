@@ -10,7 +10,7 @@
     "e2e": "ng e2e",
     "gitDeploy": "npx angular-cli-ghpages --dir=dist/BBYTerminal"
   },
-  "private": true,
+  "private": false,
   "dependencies": {
     "@angular/animations": "^6.1.0",
     "@angular/cdk": "^6.4.7",
@@ -25,6 +25,7 @@
     "@angular/platform-browser-dynamic": "^6.1.0",
     "@angular/router": "^6.1.0",
     "angular-calendar": "^0.28.28",
+    "angular-cli-ghpages": "^0.6.2",
     "chart.js": "^2.7.3",
     "core-js": "^2.5.4",
     "date-fns": "^1.29.0",
