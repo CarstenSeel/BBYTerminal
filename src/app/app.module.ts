@@ -29,37 +29,27 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { HeaderModule } from './header/header.module';
 import { SidebarModule } from './sidebar/sidebar.module';
+import { FoodModule } from './food/food.module';
+import { SizeModule } from './size/size.module';
+import { WeightModule } from './weight/weight.module';
+import { SleepModule } from './sleep/sleep.module';
+import { DiapersModule } from './diapers/diapers.module';
+import { ApointmentsModule } from './apointments/apointments.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    // DashboardComponent,
-    // FoodComponent,
-    // SleepComponent,
-    // SizeComponent,
-    // DiapersComponent,
-    // ApointmentsComponent,
-    // WeightComponent,
-    // HeaderComponent,
-    // DeleteDialogComponent,
-    // CreateDialogComponent,
-    // EditDialogComponent,
-    // CreateSizeDialogComponent,
-    // DeleteSizeDialogComponent,
-    // CreateWeightDialogComponent,
-    // DeleteWeightDialogComponent,
-    // CreateDiaperDialogComponent,
-    // DeleteDiaperDialogComponent,
-    // CreateFoodDialogComponent,
-    // DeleteFoodDialogComponent,
-    // CreateSleepDialogComponent,
-    // DeleteSleepDialogComponent,
-    // SidebarComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     HeaderModule,
     SidebarModule,
+    FoodModule,
+    SizeModule,
+    WeightModule,
+    SleepModule,
+    DiapersModule,
+    ApointmentsModule,
     AppRoutingModule,
     MatIconModule,
     MatCardModule,
