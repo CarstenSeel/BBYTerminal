@@ -106,19 +106,19 @@ import { SidebarComponent } from './sidebar/sidebar.component';
       ],
   bootstrap: [AppComponent],
   entryComponents: [
-    // DeleteDialogComponent,
-    // CreateDialogComponent,
-    // EditDialogComponent,
-    // CreateSizeDialogComponent,
-    // DeleteSizeDialogComponent,
-    // CreateWeightDialogComponent,
-    // DeleteWeightDialogComponent,
-    // CreateDiaperDialogComponent,
-    // DeleteDiaperDialogComponent,
-    // CreateFoodDialogComponent,
-    // DeleteFoodDialogComponent,
-    // CreateSleepDialogComponent,
-    // DeleteSleepDialogComponent
+    DeleteDialogComponent,
+    CreateDialogComponent,
+    EditDialogComponent,
+    CreateSizeDialogComponent,
+    DeleteSizeDialogComponent,
+    CreateWeightDialogComponent,
+    DeleteWeightDialogComponent,
+    CreateDiaperDialogComponent,
+    DeleteDiaperDialogComponent,
+    CreateFoodDialogComponent,
+    DeleteFoodDialogComponent,
+    CreateSleepDialogComponent,
+    DeleteSleepDialogComponent
   ]
 })
 export class AppModule { }
