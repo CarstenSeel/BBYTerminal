@@ -48,7 +48,20 @@ import { SidebarComponent } from './sidebar/sidebar.component';
     FoodComponent,
     DiapersComponent,
     HeaderComponent,
-    SidebarComponent
+    SidebarComponent,
+    DeleteDialogComponent,
+    CreateDialogComponent,
+    EditDialogComponent,
+    CreateSizeDialogComponent,
+    DeleteSizeDialogComponent,
+    CreateWeightDialogComponent,
+    DeleteWeightDialogComponent,
+    CreateDiaperDialogComponent,
+    DeleteDiaperDialogComponent,
+    CreateFoodDialogComponent,
+    DeleteFoodDialogComponent,
+    CreateSleepDialogComponent,
+    DeleteSleepDialogComponent
   ],
   imports: [
     BrowserModule,
