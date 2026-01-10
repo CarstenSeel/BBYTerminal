@@ -38,18 +38,34 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { HeaderModule } from './header/header.module';
 import { SidebarModule } from './sidebar/sidebar.module';
+import { DashboardModule } from './dashboard/dashboard.module';
+import { FoodModule } from './food/food.module';
+import { SleepModule } from './sleep/sleep.module';
+import { SizeModule } from './size/size.module';
+import { DiapersModule } from './diapers/diapers.module';
+import { WeightModule } from './weight/weight.module';
+import { ApointmentsModule } from './apointments/apointments.module';
 
 @NgModule({
   declarations: [
+    DashboardModule,
+    FoodModule,
+    SleepModule,
+    SizeModule,
+    DiapersModule,
+    WeightModule,
+    ApointmentsModule,
+    HeaderModule,
+    SidebarModule,
     AppComponent,
-    DashboardComponent,
-    FoodComponent,
-    SleepComponent,
-    SizeComponent,
-    DiapersComponent,
-    ApointmentsComponent,
-    WeightComponent,
-    HeaderComponent,
+    // DashboardComponent,
+    // FoodComponent,
+    // SleepComponent,
+    // SizeComponent,
+    // DiapersComponent,
+    // ApointmentsComponent,
+    // WeightComponent,
+    // HeaderComponent,
     DeleteDialogComponent,
     CreateDialogComponent,
     EditDialogComponent,
@@ -63,7 +79,7 @@ import { SidebarModule } from './sidebar/sidebar.module';
     DeleteFoodDialogComponent,
     CreateSleepDialogComponent,
     DeleteSleepDialogComponent,
-    SidebarComponent
+    // SidebarComponent
   ],
   imports: [
     BrowserModule,
