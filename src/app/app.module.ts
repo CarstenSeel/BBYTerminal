@@ -27,8 +27,6 @@ import { CreateSleepDialogComponent } from './sleep/dialogs/createDialog/createS
 import { DeleteSleepDialogComponent } from './sleep/dialogs/deleteDialog/deleteSleepDialog.component';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
-import { HeaderModule } from './header/header.module';
-import { SidebarModule } from './sidebar/sidebar.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SleepComponent } from './sleep/sleep.component';
 import { SizeComponent } from './size/size.component';
@@ -36,6 +34,8 @@ import { WeightComponent } from './weight/weight.component';
 import { ApointmentsComponent } from './apointments/apointments.component';
 import { FoodComponent } from './food/food.component';
 import { DiapersComponent } from './diapers/diapers.component';
+import { HeaderComponent } from './header/header.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -46,12 +46,14 @@ import { DiapersComponent } from './diapers/diapers.component';
     WeightComponent,
     ApointmentsComponent,
     FoodComponent,
-    DiapersComponent
+    DiapersComponent,
+    HeaderComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,
-    HeaderModule,
-    SidebarModule,
+    // HeaderModule,
+    // SidebarModule,
     AppRoutingModule,
     MatIconModule,
     MatCardModule,
