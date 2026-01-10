@@ -48,24 +48,15 @@ import { ApointmentsModule } from './apointments/apointments.module';
 
 @NgModule({
   declarations: [
-    DashboardModule,
-    FoodModule,
-    SleepModule,
-    SizeModule,
-    DiapersModule,
-    WeightModule,
-    ApointmentsModule,
-    HeaderModule,
-    SidebarModule,
     AppComponent,
-    // DashboardComponent,
-    // FoodComponent,
-    // SleepComponent,
-    // SizeComponent,
-    // DiapersComponent,
-    // ApointmentsComponent,
-    // WeightComponent,
-    // HeaderComponent,
+    DashboardComponent,
+    FoodComponent,
+    SleepComponent,
+    SizeComponent,
+    DiapersComponent,
+    ApointmentsComponent,
+    WeightComponent,
+    HeaderComponent,
     DeleteDialogComponent,
     CreateDialogComponent,
     EditDialogComponent,
@@ -79,7 +70,7 @@ import { ApointmentsModule } from './apointments/apointments.module';
     DeleteFoodDialogComponent,
     CreateSleepDialogComponent,
     DeleteSleepDialogComponent,
-    // SidebarComponent
+    SidebarComponent
   ],
   imports: [
     BrowserModule,
@@ -137,19 +128,19 @@ import { ApointmentsModule } from './apointments/apointments.module';
       ],
   bootstrap: [AppComponent],
   entryComponents: [
-    // DeleteDialogComponent,
-    // CreateDialogComponent,
-    // EditDialogComponent,
-    // CreateSizeDialogComponent,
-    // DeleteSizeDialogComponent,
-    // CreateWeightDialogComponent,
-    // DeleteWeightDialogComponent,
-    // CreateDiaperDialogComponent,
-    // DeleteDiaperDialogComponent,
-    // CreateFoodDialogComponent,
-    // DeleteFoodDialogComponent,
-    // CreateSleepDialogComponent,
-    // DeleteSleepDialogComponent
+    DeleteDialogComponent,
+    CreateDialogComponent,
+    EditDialogComponent,
+    CreateSizeDialogComponent,
+    DeleteSizeDialogComponent,
+    CreateWeightDialogComponent,
+    DeleteWeightDialogComponent,
+    CreateDiaperDialogComponent,
+    DeleteDiaperDialogComponent,
+    CreateFoodDialogComponent,
+    DeleteFoodDialogComponent,
+    CreateSleepDialogComponent,
+    DeleteSleepDialogComponent
   ]
 })
 export class AppModule { }
