@@ -11,6 +11,19 @@ import { adapterFactory } from "angular-calendar/date-adapters/date-fns";
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from "ng-pick-datetime";
 import { ChartsModule } from "ng2-charts";
 import { AppRoutingModule } from "../app-routing.module";
+import { CreateDialogComponent } from "../apointments/dialogs/createDialog/createDialog.component";
+import { DeleteDialogComponent } from "../apointments/dialogs/deleteDialog/deleteDialog.component";
+import { EditDialogComponent } from "../apointments/dialogs/editDialog/editDialog.component";
+import { CreateFoodDialogComponent } from "../food/dialogs/createDialog/createFoodDialog.component";
+import { DeleteFoodDialogComponent } from "../food/dialogs/deleteDialog/deleteFoodDialog.component";
+import { CreateSizeDialogComponent } from "../size/dialogs/createDialog/createSizeDialog.component";
+import { DeleteSizeDialogComponent } from "../size/dialogs/deleteDialog/deleteSizeDialog.component";
+import { CreateSleepDialogComponent } from "../sleep/dialogs/createDialog/createSleepDialog.component";
+import { DeleteSleepDialogComponent } from "../sleep/dialogs/deleteDialog/deleteSleepDialog.component";
+import { CreateWeightDialogComponent } from "../weight/dialogs/createDialog/createWeightDialog.component";
+import { DeleteWeightDialogComponent } from "../weight/dialogs/deleteDialog/deleteWeightDialog.component";
+import { CreateDiaperDialogComponent } from "./dialogs/createDialog/createDiaperDialog.component";
+import { DeleteDiaperDialogComponent } from "./dialogs/deleteDialog/deleteDiaperDialog.component";
 
 @NgModule({
     declarations: [DiapersComponent],
@@ -44,6 +57,21 @@ import { AppRoutingModule } from "../app-routing.module";
         }),
     ],
     exports: [DiapersComponent],
+    entryComponents: [
+        DeleteDialogComponent,
+        CreateDialogComponent,
+        EditDialogComponent,
+        CreateSizeDialogComponent,
+        DeleteSizeDialogComponent,
+        CreateWeightDialogComponent,
+        DeleteWeightDialogComponent,
+        CreateDiaperDialogComponent,
+        DeleteDiaperDialogComponent,
+        CreateFoodDialogComponent,
+        DeleteFoodDialogComponent,
+        CreateSleepDialogComponent,
+        DeleteSleepDialogComponent
+      ]
 })
 
 export class DiapersModule{
